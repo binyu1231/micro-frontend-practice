@@ -1,0 +1,17 @@
+{
+  "name": "@module-data/dashboard",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@legend/chart": "^0.0.1",
+    "@legend/helper-react-hooks": "^0.0.1",
+    "@legend/ui": "^0.0.2",
+    "antd": "^3.24.3",
+    "react": "^16.11.0"
+  },
+  "gitHead": "625c66277222a8a0f0541c2b7f749f018b53bd3b",
+  "devDependencies": {
+    "@types/react": "^16.9.11"
+  }
+}
