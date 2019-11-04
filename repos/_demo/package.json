@@ -8,10 +8,10 @@
     "build-book": "build-storybook"
   },
   "dependencies": {
-    "@legend/chart": "^0.0.1",
-    "@legend/helper-react-hooks": "^0.0.1",
-    "@legend/ui": "^0.0.2",
-    "@module-data/dashboard": "^0.0.1",
+    "@legend/chart": "file:../chart",
+    "@legend/helper-react-hooks": "file:../helper-react-hooks",
+    "@legend/ui": "file:../ui",
+    "@module-data/dashboard": "file:../module-data-dashboard",
     "react": "^16.10.2",
     "react-dom": "^16.10.2"
   },

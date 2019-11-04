@@ -4,10 +4,9 @@
   "main": "index.ts",
   "license": "MIT",
   "dependencies": {
-    "@legend/chart": "^0.0.1",
-    "@legend/helper-react-hooks": "^0.0.1",
-    "@legend/ui": "^0.0.2",
-    "@types/single-spa-react": "^2.8.3",
+    "@legend/chart": "file:../chart",
+    "@legend/helper-react-hooks": "file:../helper-react-hooks",
+    "@legend/ui": "file:../ui",
     "antd": "^3.24.3",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
@@ -16,6 +15,7 @@
   "gitHead": "625c66277222a8a0f0541c2b7f749f018b53bd3b",
   "devDependencies": {
     "@types/react": "^16.9.11",
-    "@types/react-dom": "^16.9.3"
+    "@types/react-dom": "^16.9.3",
+    "@types/single-spa-react": "^2.8.3"
   }
 }
