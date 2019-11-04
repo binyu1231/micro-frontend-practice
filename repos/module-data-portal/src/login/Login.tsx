@@ -1,18 +1,18 @@
 import React, { FC, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { connect } from 'react-redux'
+// import { useGlobalStore } from '@legend/helper-react-hooks'
+// import { PortalActionTypes } from '../../config/module'
 
 const Login: FC<{}> = (props) => {
 
   const history = useHistory()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  // const { state, dispatch } = useGlobalStore('portal')
 
-  console.log('ffff', props)
   function handleLoginSubmit () {
-
+    // dispatch(PortalActionTypes.updatePortalState, { username: '好了', password: '好了' })
     history.replace('/')
-
   }
 
   return (
@@ -58,22 +58,9 @@ const Login: FC<{}> = (props) => {
         <div>
           <button onClick={handleLoginSubmit}>登录</button>
         </div>
-
       </div>
     </div>
   )
 }
 
-const LoginWrapper = connect(
-  (_, __) => {
-    console.log('ggg', _, __)
-    return {
-      a: _, 
-      b: __,
-    }
-  }
-)(Login)
-
-export {
-  LoginWrapper as Login
-}
+export { Login }

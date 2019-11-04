@@ -1,23 +1,15 @@
 
 
 import { registerApplication, start } from 'single-spa'
-import { PortalModule, protalModule } from '@module-data/portal/config'
-import USMModule from 'usm'
+// import { PortalModule, portalModule } from '@module-data/portal/config'
 
-const store = new USMModule({
-  modules: {
-    portal: protalModule
-  }
-})
-
-console.log(store)
+// registerModule(portalModule.name, portalModule)
 
 registerApplication(
   'portal', 
   () => import('@module-data/portal'), 
   () => true,
   { 
-    store, 
     rootPath: '/' 
   }
 )

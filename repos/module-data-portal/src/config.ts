@@ -5,6 +5,5 @@ export type ModuleConfigOption = {
 
 export const configOption: ModuleConfigOption = {
   domId: 'module-data-portal',
-  accessId: 'data-access'
-
+  accessId: 'data-access',
 }
