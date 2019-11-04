@@ -5,6 +5,8 @@ import { registerApplication, start } from 'single-spa'
 
 // registerModule(portalModule.name, portalModule)
 
+console.log(3)
+
 registerApplication(
   'portal', 
   () => import('@module-data/portal'), 

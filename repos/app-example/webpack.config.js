@@ -1,18 +1,26 @@
 var path = require('path')
 
+
+console.log(path.resolve(__dirname))
 module.exports = {
+  mode: 'development',
   entry: path.resolve(__dirname, './src/main.ts'),
   output: {
     filename: 'bundle.js',
-    path: '/build',
+    path: path.resolve(__dirname, './build'),
     publicPath: '/build'
   },
   devServer: {
+    open: true,
     port: 8080,
     publicPath: '/build',
-    contentBase: './public',
+    contentBase: ['./public'],
     historyApiFallback: {
       index: 'index.html',
+    },
+    watchContentBase: true,
+    watchOptions: {
+      poll: true
     }
   },
   resolve: {
@@ -30,13 +38,11 @@ module.exports = {
           ],
           plugins: [
             '@babel/plugin-proposal-object-rest-spread',
-            '@babel/plugin-syntax-dynamic-import',
-            ["@babel/plugin-proposal-decorators", { "legacy": true }],
-            ["@babel/plugin-proposal-class-properties", { "loose" : true }]
+            '@babel/plugin-syntax-dynamic-import'
           ],
         },
         test: /\.tsx?$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
       }
     ]
   }
