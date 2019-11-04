@@ -1,4 +1,4 @@
-import { useState, useCallback, useContext, FC } from 'react'
+import { useState, useCallback } from 'react'
 
 type PlainObject = { [key: string]: any }
 
@@ -17,9 +17,9 @@ export function registerModule (name: string, module: Module) {
 }
 
 /// for react
-export function useGlobalStore<T extends Module> (moduleName: string) {
+export function useGlobalModule<T extends Module> (moduleName: string) {
   const m: T = _store[moduleName]
-  // if (m === undefined) throw new Error(`[useGlobalStore]: Module '${moduleName}' is not existed.`)
+  if (m === undefined) throw new Error(`[useGlobalStore]: Module '${moduleName}' is not existed.`)
 
   const [_, trigger] = useState(Object.create(null))
   const dispatch = useCallback((actionName: string, payload: any) => {
@@ -29,5 +29,12 @@ export function useGlobalStore<T extends Module> (moduleName: string) {
   }, [])
   return { state: m.state, dispatch }
 
+}
+
+export function useExample (payload) {
+
+  const [example, setExample] = useState(payload)
+
+  return { example, setExample }
 }
 

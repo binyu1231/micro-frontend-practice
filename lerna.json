@@ -3,5 +3,6 @@
   "packages": [
     "repos/*"
   ],
+  "useWorkspaces": true,
   "version": "independent"
 }
