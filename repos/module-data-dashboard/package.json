@@ -4,9 +4,9 @@
   "main": "index.ts",
   "license": "MIT",
   "dependencies": {
-    "@legend/chart": "file:../chart",
-    "@legend/helper-react-hooks": "file:../helper-react-hooks",
-    "@legend/ui": "file:../ui",
+    "@legend/chart": "^0.0.1",
+    "@legend/helper-react-hooks": "^0.0.1",
+    "@legend/ui": "^0.0.1",
     "antd": "^3.24.3",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",

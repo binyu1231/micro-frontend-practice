@@ -1,17 +1,17 @@
 import React, { FC, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-// import { useGlobalStore } from '@legend/helper-react-hooks'
-// import { PortalActionTypes } from '../../config/module'
+import { useGlobalModule } from '@legend/helper-react-hooks'
+import { portalModule, PortalActionTypes } from '../../config'
 
 const Login: FC<{}> = (props) => {
 
   const history = useHistory()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  // const { state, dispatch } = useGlobalStore('portal')
+  const { state, dispatch } = useGlobalModule(portalModule.name)
 
   function handleLoginSubmit () {
-    // dispatch(PortalActionTypes.updatePortalState, { username: '好了', password: '好了' })
+    dispatch(PortalActionTypes.updatePortalState, { username: '好了', password: '好了' })
     history.replace('/')
   }
 

@@ -4,15 +4,18 @@ import { portalModule } from '../../config'
 
 
 registerModule(portalModule.name, portalModule)
+
 export const Nav: FC<{}> = ({}) => {
+
+  const { state, dispatch } = useGlobalModule(portalModule.name)
   return (
     <nav>
       <h1>Example2 Logo</h1>
       <ul>
-        <li>1</li>
-        <li>2</li>
+        <li>{ state.username }</li>
+        <li>{ state.password }</li>
         <li>3</li>
-        <li>6</li>
+        <li>07</li>
       </ul>
     </nav>
   )

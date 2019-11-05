@@ -7,21 +7,17 @@ module.exports = {
   entry: path.resolve(__dirname, './src/main.ts'),
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, './build'),
+    path: '/build',
     publicPath: '/build'
   },
   devServer: {
     open: true,
     port: 8080,
     publicPath: '/build',
-    contentBase: ['./public'],
+    contentBase: './public',
     historyApiFallback: {
       index: 'index.html',
     },
-    watchContentBase: true,
-    watchOptions: {
-      poll: true
-    }
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.json']

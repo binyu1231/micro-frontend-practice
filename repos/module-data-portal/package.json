@@ -4,7 +4,7 @@
   "main": "index.ts",
   "license": "MIT",
   "dependencies": {
-    "@legend/helper-react-hooks": "file:../helper-react-hooks",
+    "@legend/helper-react-hooks": "^0.0.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",
