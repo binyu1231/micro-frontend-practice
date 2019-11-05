@@ -1,7 +1,6 @@
 {
   "name": "root",
   "private": true,
-  "workspaces": ["repos/*"],
   "devDependencies": {
     "lerna": "^3.16.4"
   }
