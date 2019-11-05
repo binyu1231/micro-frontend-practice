@@ -10,11 +10,11 @@ module.exports = async ({ config }) => {
         '@babel/preset-react',
         '@babel/preset-typescript',
       ],
-      // plugins: [
-      //   '@babel/plugin-proposal-object-rest-spread',
-      //   '@babel/plugin-proposal-class-properties',
-      //   '@babel/plugin-syntax-dynamic-import',
-      // ],
+      plugins: [
+        '@babel/plugin-proposal-object-rest-spread',
+        '@babel/plugin-proposal-class-properties',
+        '@babel/plugin-syntax-dynamic-import',
+      ],
     },
     test: /\.tsx?$/,
     exclude: /node_modules/,

@@ -12,7 +12,7 @@ export const Root:FC<any> = (props) => {
   return (
     <Router history={history}>
       <Switch>
-        <Route path={`${props.rootPath}/survey`} component={Login} />
+        <Route path={`${props.rootPath}/`} component={Login} />
         <Route path={`${props.rootPath}/list`} component={Nav} />
       </Switch>
     </Router>

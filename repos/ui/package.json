@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@legend/helper-react-hooks": "^0.0.1",
     "antd": "^3.24.2",
     "react": "^16.11.0"
   },

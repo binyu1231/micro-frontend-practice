@@ -1,7 +1,7 @@
 {
   "name": "@app/example",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "src/main.ts",
   "license": "MIT",
   "dependencies": {
     "@legend/helper-react-hooks": "^0.0.1",

@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useGlobalModule } from '@legend/helper-react-hooks'
 import { portalModule, PortalActionTypes } from '../../config'
-
+import { NormalLogin } from '@legend/ui'
 const Login: FC<{}> = (props) => {
 
   const history = useHistory()
@@ -10,9 +10,9 @@ const Login: FC<{}> = (props) => {
   const [password, setPassword] = useState('')
   const { state, dispatch } = useGlobalModule(portalModule.name)
 
-  function handleLoginSubmit () {
-    dispatch(PortalActionTypes.updatePortalState, { username: '好了', password: '好了' })
-    history.replace('/')
+  function handleLoginSubmit (username: string, password: string) {
+    dispatch(PortalActionTypes.updatePortalState, { username, password })
+    history.replace('/label-market')
   }
 
   return (
@@ -36,28 +36,9 @@ const Login: FC<{}> = (props) => {
         margin: 'auto',
         background: '#f7f7f7'
       }}>
-        <div>
-          <label htmlFor="username">用户名</label>
-          <input 
-            id="username" 
-            type="text" 
-            value={username} 
-            onChange={e => setUsername(e.target.value)} 
-          />
-        </div>
-        <div>
-          <label htmlFor="password">密码</label>
-          <input 
-            id="password" 
-            type="password" 
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
-        </div>
-
-        <div>
-          <button onClick={handleLoginSubmit}>登录</button>
-        </div>
+        <NormalLogin onSubmit={(username, password) => {
+          handleLoginSubmit(username, password)
+        }}></NormalLogin>
       </div>
     </div>
   )
