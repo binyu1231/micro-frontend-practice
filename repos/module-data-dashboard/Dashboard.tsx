@@ -1,40 +1,33 @@
-import React, { FC, Fragment } from 'react'
-import { useI18nLocale, I18nLanguages } from '@legend/helper-react-hooks'
+import React, { FC, Fragment, Component } from 'react'
+import { useI18nLocale, I18nLanguages, I18nProvider } from '@legend/helper-react-hooks'
 import { Row, Col } from 'antd'
 import 'antd/lib/row/style/css'
 import 'antd/lib/col/style/css'
 import { TagCloud } from './components/tagCloud/TagCloud'
 import { IdGraph } from './components/idGraph/IdGraph'
+import { IDashboardRootProps, IDashboardAccess } from './config'
 
-export interface BDDashboardAccess {
-  /** 标签云 */
-  tagCloud: boolean,
-  /** ID 图谱 */
-  idGraph: boolean,
-  /** 地域分布 */
-  geo: boolean,
-  /** 标签分布 */
-  tagCoverage: boolean,
-  /** 行业人群 */
-  predefinedSegment: boolean,
-  /** 基础属性 */
-  demographics: boolean,
-  /** 人均标签分布 */
-  tagStatistics: boolean,
-  /** 兴趣偏好 */
-  preference: boolean,
-  /** 近30天ID数量趋势 */
-  idTrend: boolean,
+export class Root extends Component<IDashboardRootProps> {
+
+  componentDidCatch () {}
+
+  render () {
+    return (
+      <I18nProvider lang={I18nLanguages.ZH_CN}>
+        <Dashboard { ...this.props }/>
+      </I18nProvider>
+    )
+  }
 }
 
-export const Dashboard: FC<{
-  access: BDDashboardAccess
-}> = ({
+
+
+export const Dashboard: FC<IDashboardRootProps> = ({
   access
 }) => {
-    access = access || {} as BDDashboardAccess
-
-    const [locale] = useI18nLocale({
+    access = access || {} as IDashboardAccess
+    
+    let [locale]: any[] = useI18nLocale({
       [I18nLanguages.EN_US]: {
         'tagCloud': 'Tag Cloud',
         'idGraph': 'ID Graph',

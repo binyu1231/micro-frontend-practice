@@ -18,6 +18,10 @@ export const NEO = () => {
         id="module-data-portal"
         data-access="1,2,3"
       ></div>
+      <div 
+        id="module-data-dashboard"
+        data-access="1,2,3"
+      ></div>
       <div
         id="module-data-label-market"
         data-access="1,2,3"

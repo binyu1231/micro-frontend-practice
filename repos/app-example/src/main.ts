@@ -1,18 +1,44 @@
 
 
 import { registerApplication, unloadApplication, start, getAppNames } from 'single-spa'
-// import { PortalModule, portalModule } from '@module-data/portal/config'
-
+import { PortalModule, portalModule, IPortalRootProps } from '@module-data/portal/config'
+import { IDashboardRootProps, dashboardAccesses } from '@module-data/dashboard/config'
 // registerModule(portalModule.name, portalModule)
 
 export function mount () {
+
+  const portalProps: Partial<IPortalRootProps> = {
+    rootPath: '',
+    signSuccessRedirectPath: '/dashboard'
+  }
+
+  const dashboardProps: Partial<IDashboardRootProps> = {
+    rootPath: '/dashboard',
+    access: {
+      tagCloud: true,
+      idGraph: true,
+      geo: true,
+      tagCoverage: true,
+      predefinedSegment: true,
+      demographics: true,
+      tagStatistics: true,
+      preference: true,
+      idTrend: true,
+    }
+  }
+
   registerApplication(
-    'portal', 
+    portalModule.name, 
     () => import('@module-data/portal'), 
     () => true,
-    { 
-      rootPath: '/' 
-    }
+    portalProps
+  )
+
+  registerApplication(
+    'dashboard',
+    () => import('@module-data/dashboard'),
+    pathPrefix('/dashboard'),
+    dashboardProps
   )
   
   registerApplication(

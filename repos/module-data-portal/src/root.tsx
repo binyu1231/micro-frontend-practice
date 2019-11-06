@@ -1,11 +1,11 @@
 import React, { FC, useEffect, Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, RouteComponentProps } from 'react-router-dom'
 import { Login } from './login/Login'
 import { Nav } from './nav/Nav'
-import { portalModule } from '../config/module'
+import { portalModule, IPortalRootProps } from '../config/module'
 
 
-export class Root extends Component {
+export class Root extends Component<IPortalRootProps> {
 
   /**
    * rootComponent should implement componentDidCatch to avoid accidentally 
@@ -15,11 +15,18 @@ export class Root extends Component {
 
   }
   public render () {
+    const { rootPath, signSuccessRedirectPath } = this.props
     return (
       <Router>
         <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/" component={Nav} />
+          <Route 
+            path={rootPath + '/login'} 
+            component={(routeProps: RouteComponentProps) => 
+              <Login { ...routeProps } signSuccessRedirectPath={signSuccessRedirectPath} />} />
+          <Route 
+            path={rootPath + '/'} 
+            component={Nav} 
+          />
         </Switch>
       </Router>
     )

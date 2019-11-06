@@ -7,7 +7,6 @@ export interface Module {
   action: { [key: string]: (state: PlainObject, payload: PlainObject) => PlainObject }
 }
 
-
 const _store = {
   modules: {} as { [key: string]: Module },
 }
@@ -28,13 +27,4 @@ export function useGlobalModule<T extends Module> (moduleName: string) {
     trigger(Object.create(null))
   }, [])
   return { state: m.state, dispatch }
-
 }
-
-export function useExample (payload) {
-
-  const [example, setExample] = useState(payload)
-
-  return { example, setExample }
-}
-

@@ -35,3 +35,8 @@ export const portalModule: PortalModule = {
   state, action, name: 'portal'
 }
 
+export interface IPortalRootProps {
+  rootPath: string,
+  signSuccessRedirectPath: string
+}
+

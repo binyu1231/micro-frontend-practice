@@ -16,7 +16,9 @@ export type I18nProps = {
   locales: I18nLocales,
 }
 
-export const I18nContext = createContext<Partial<I18nProps>>({})
+export const I18nContext = createContext<Partial<I18nProps>>({
+  lang: defLang()
+})
 
 function defLang() {
   let defaultLang: I18nLanguages
@@ -68,8 +70,9 @@ export const I18nProvider: FC<{
  */
 export const useI18nLocale = (locales?: I18nLocales) => {
   const { lang, locales: rootLocales } = useContext(I18nContext)
-
+  
   const currentLocales = locales || rootLocales
+
   if (!currentLocales)
     throw new Error('please set a root locales or component locales at least')
 

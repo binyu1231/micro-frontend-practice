@@ -1,9 +1,14 @@
 import React, { FC, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, RouteComponentProps } from 'react-router-dom'
 import { useGlobalModule } from '@legend/helper-react-hooks'
 import { portalModule, PortalActionTypes } from '../../config'
 import { NormalLogin } from '@legend/ui'
-const Login: FC<{}> = (props) => {
+
+const Login: FC<RouteComponentProps & {
+  signSuccessRedirectPath: string
+}> = ({
+  signSuccessRedirectPath
+}) => {
 
   const history = useHistory()
   const [username, setUsername] = useState('')
@@ -12,7 +17,7 @@ const Login: FC<{}> = (props) => {
 
   function handleLoginSubmit (username: string, password: string) {
     dispatch(PortalActionTypes.updatePortalState, { username, password })
-    history.replace('/label-market')
+    history.replace(signSuccessRedirectPath)
   }
 
   return (
