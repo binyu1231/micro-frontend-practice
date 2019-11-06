@@ -1,3 +1,5 @@
 export * from './exampleButton/ExampleButton'
 export * from './panelCard/PanelCard'
 export * from './login/Normal'
+export * from './nav/WebsiteNavigator'
+export * from './nav/NavMenu'

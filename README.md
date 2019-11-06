@@ -8,6 +8,9 @@
 $ npm i lerna -g
 $ lerna link
 $ lerna bootstrap
+
+$ cd repos/_demo
+_demo $ yarn book
 ```
 
 ### lib
