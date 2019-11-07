@@ -1,26 +1,19 @@
 var path = require('path')
 
 
-console.log(path.resolve(__dirname))
+console.log(2222, path.resolve(__dirname, './index.js'))
 module.exports = {
   mode: 'development',
-  entry: path.resolve(__dirname, './src/main.ts'),
+  entry: path.resolve(__dirname, './index.js'),
   output: {
     filename: 'bundle.js',
-    path: '/build',
-    publicPath: '/build'
-  },
-  devServer: {
-    open: true,
-    port: 8080,
-    publicPath: '/build',
-    contentBase: './public',
-    historyApiFallback: {
-      index: 'index.html',
-    },
+    path: path.join(__dirname, '/dist'),
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.json']
+  },
+  externals : {
+    react: 'React'
   },
   module: {
     rules: [
@@ -34,10 +27,21 @@ module.exports = {
           ],
           plugins: [
             '@babel/plugin-proposal-object-rest-spread',
-            '@babel/plugin-syntax-dynamic-import'
+            '@babel/plugin-syntax-dynamic-import',
+            '@babel/plugin-proposal-class-properties',
           ],
         },
         test: /\.tsx?$/,
+        // exclude: /node_modules/,
+      }, {
+        loader: 'postcss-loader',
+        options: {
+          sourceMap: true,
+          config: {
+            path: path.resolve(__dirname, './')
+          }
+        },
+        test: /\.css$/,
         // exclude: /node_modules/,
       }
     ]

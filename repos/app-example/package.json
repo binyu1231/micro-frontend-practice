@@ -1,13 +1,17 @@
 {
   "name": "@app/example",
   "version": "0.0.1",
-  "main": "src/main.ts",
+  "main": "index.ts",
   "license": "MIT",
   "dependencies": {
+    "@legend/chart": "^0.0.1",
     "@legend/helper-react-hooks": "^0.0.1",
+    "@legend/ui": "^0.0.1",
     "@module-data/dashboard": "^0.0.1",
     "@module-data/label-market": "^0.0.1",
     "@module-data/portal": "^0.0.1",
+    "antd": "^3.25.0",
+    "css-loader": "^3.2.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "single-spa": "^4.4.1",
@@ -15,12 +19,11 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack ./webpack.config.js"
+    "build": "webpack"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-proposal-decorators": "^7.6.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.6.3",
@@ -28,9 +31,15 @@
     "@babel/preset-typescript": "^7.6.0",
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.3",
+    "autoprefixer": "^9.6.4",
     "babel-loader": "^8.0.6",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-nested": "^4.1.2",
+    "postcss-url": "^8.0.0",
+    "tailwindcss": "^1.1.2",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
+    "webpack-cli": "^3.3.10"
   }
 }

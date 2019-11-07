@@ -24,8 +24,8 @@ export const Nav: FC<{}> = ({}) => {
           { name: '标签集市', key: '2', link: 'https://cn.bing.com' },
           { name: '人群管理', key: '3', link: 'https://cn.bing.com' },
         ]}
+        onLogout={logout}
       />
-      <button onClick={logout}>444</button>
     </div>
   )
 }
