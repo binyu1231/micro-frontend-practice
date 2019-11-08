@@ -1,7 +1,7 @@
 {
-  "packages": [
-    "repos/*"
-  ],
+  "packages": ["repos/*"],
+  "workspaces": ["repos/*"],
+  "useWorkspaces": true,
   "npmClient": "yarn",
   "version": "independent"
 }

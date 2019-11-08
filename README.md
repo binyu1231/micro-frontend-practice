@@ -1,35 +1,66 @@
-# legend
+# Legend
 
-微前端开发模板
+Micro Front-End Development Template
 
-### use
+### Use
 
 ``` bash
 $ npm i lerna -g
+
+# required 
 $ lerna link
+
+# install packages
 $ lerna bootstrap
 
+# storybook
 $ cd repos/_demo
 _demo $ yarn book
+
+# a project
+$ cd repos/app-example
+app-example $ yarn start 
+# or 
+app-example $ yarn build
 ```
 
-### lib
+### Lib
 
-#### development
+#### Development
 
-- lerna (required)
-- storybook
-- jest
-- postcss/tailwindcss
-- webpack/babel
+- [x] lerna (required)
+- [x] webpack/babel (required)
+- [x] storybook
+- [x] jest
+- [x] postcss/tailwindcss
 
-#### production
+#### Production
 
-- single-spa
-- react
-- antd
-- vue?
-- angular?
+- [x] single-spa (required)
+- [x] React
+- [x] Antd
+- [ ] Vue
+- [ ] Angular
+
+### Feature
+
+#### Workflow
+
+- 开发
+  - [x] 组件开发(storybook) 组件视觉还原
+  - [x] 模块开发(storybook) mock数据
+  - [x] 项目开发(webpack-dev-server)
+- 测试
+  - [x] 单元测试(jest)
+  - [ ] 集成测试
+- 打包
+  - [x] 单独打包(webpack)
+  - [ ] 打包所有
+- 发布
+  - [x] 单独发布(npm)
+  - [x] 发布所有(lerna)
+
+
 
 ### Note
 

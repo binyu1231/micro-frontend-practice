@@ -1,20 +1,36 @@
 var path = require('path')
+var MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-
-console.log(2222, path.resolve(__dirname, './index.js'))
 module.exports = {
   mode: 'development',
   entry: path.resolve(__dirname, './index.js'),
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, '/dist'),
+    path: path.join(__dirname, './dist'),
+    publicPath: '/dist'
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.json']
   },
-  externals : {
-    react: 'React'
+  devServer: {
+    open: true,
+    port: 9000,
+    noInfo: true,
+    host: '0.0.0.0',
+    publicPath: '/dist',
+    contentBase: path.join(__dirname, './public'),
+    historyApiFallback: {
+      index: 'index.html',
+    }
   },
+  plugins: [
+    // 拆分css 文件
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+      ignoreOrder: false
+    })
+  ],
   module: {
     rules: [
       {
@@ -34,14 +50,26 @@ module.exports = {
         test: /\.tsx?$/,
         // exclude: /node_modules/,
       }, {
-        loader: 'postcss-loader',
-        options: {
-          sourceMap: true,
-          config: {
-            path: path.resolve(__dirname, './')
-          }
-        },
         test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            // options: {
+            //   hmr: process.env.NODE_ENV === 'development',
+            // },
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+              config: {
+                path: path.resolve(__dirname, './')
+              }
+            },
+          }]
         // exclude: /node_modules/,
       }
     ]

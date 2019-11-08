@@ -4,8 +4,9 @@ import { registerApplication, unloadApplication, start, getAppNames } from 'sing
 import { PortalModule, portalModule, IPortalRootProps } from '@module-data/portal/config'
 import { IDashboardRootProps, dashboardAccesses } from '@module-data/dashboard/config'
 // registerModule(portalModule.name, portalModule)
-import './style.css'
-console.log('ggggggggg')
+// import './style.css'
+require('./style.css')
+
 export function mount () {
 
   const portalProps: Partial<IPortalRootProps> = {

@@ -1,5 +1,5 @@
 import React, { Fragment, useLayoutEffect } from 'react'
-import { unmount, mount } from '@app/example'
+import { unmount, mount } from '@app/example/src/main'
 export default {
   title: 'app/example'
 }
