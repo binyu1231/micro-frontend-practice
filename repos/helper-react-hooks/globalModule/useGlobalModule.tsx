@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 
-type PlainObject = { [key: string]: any }
+export type PlainObject = { [key: string]: any }
 
 export interface Module {
   state: PlainObject,

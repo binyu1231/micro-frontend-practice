@@ -68,7 +68,7 @@ export const I18nProvider: FC<{
  * 
  * @param componentLocales use this param as locales instead of I18Provider's locales prop
  */
-export const useI18nLocale = (locales?: I18nLocales) => {
+export function useI18nLocale<T> (locales?: I18nLocales) {
   const { lang, locales: rootLocales } = useContext(I18nContext)
   
   const currentLocales = locales || rootLocales
@@ -82,7 +82,7 @@ export const useI18nLocale = (locales?: I18nLocales) => {
     setLocale(currentLocales[lang])
   }, [lang])
 
-  return [locale, setLocale] as [typeof locale, typeof setLocale]
+  return [locale, setLocale] as [T, typeof setLocale]
 }
 
 export const useI18nLang = () => {
