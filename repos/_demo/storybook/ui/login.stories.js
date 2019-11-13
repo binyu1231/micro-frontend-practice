@@ -1,5 +1,5 @@
 import React from 'react'
-import { NormalLogin, MatrixDigitalRainBackboard } from '@legend/ui'
+import { NormalLogin, MatrixDigitalRainBackboard, MatrixDigitalRainCanvas } from '@legend/ui'
 
 export default {
   title: 'ui/login'
@@ -11,5 +11,9 @@ export const normalWithHeader = () => <NormalLogin header={222} />
 
 export function normalWithBackboard() {
   return <NormalLogin
-    backboard={<MatrixDigitalRainBackboard />} />
+    header={<h2>Title</h2>}
+    withCardWrapper
+    backboard={<MatrixDigitalRainCanvas />} 
+    onSubmit={(username, password) => { alert(`usename ${username}, password ${password}`)}}  
+  />
 }

@@ -41,9 +41,11 @@ const Login: FC<RouteComponentProps & {
         margin: 'auto',
         background: '#f7f7f7'
       }}>
-        <NormalLogin onSubmit={(username, password) => {
-          handleLoginSubmit(username, password)
-        }}></NormalLogin>
+        <NormalLogin 
+          onSubmit={(username: string, password: string) => {
+            handleLoginSubmit(username, password)
+          }}
+        ></NormalLogin>
       </div>
     </div>
   )
