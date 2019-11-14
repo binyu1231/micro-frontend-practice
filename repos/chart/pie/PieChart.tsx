@@ -2,6 +2,7 @@ import React, { FC, useRef, useEffect } from 'react'
 import { cloneDeep, merge } from 'lodash'
 import echarts from 'echarts'
 import { NEED_SET } from '../utils'
+import { IChartProp } from '../utils/types'
 
 const defaultOption = {
   // color: NEED_SET,
@@ -53,15 +54,8 @@ const defaultOption = {
   ]
 }
 
-export type PieChartProps = {
-  legend: string[] | string[][],
-  value: number[] | number[][]
-  color: string[] | string[][],
-  option: any,
-  theme: string,
-  [key: string]: any
-}
-export const PieChart: FC<Partial<PieChartProps>> = ({
+export interface PieChartProp extends IChartProp {}
+export const PieChart: FC<Partial<PieChartProp>> = ({
   legend,
   value,
   color,

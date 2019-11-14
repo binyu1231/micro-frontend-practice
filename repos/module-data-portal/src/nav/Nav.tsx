@@ -1,29 +1,58 @@
-import React, { FC, useCallback } from 'react'
+import React, { FC, useCallback, useState, useEffect } from 'react'
 import { registerModule, useGlobalModule } from '@legend/helper-react-hooks'
-import { portalModule } from '../../config'
-import { useHistory } from 'react-router'
-import { WebsiteNavigator } from '@legend/ui'
+import { portalModule, IPortalModule, PortalModuleState, PortalApi, PortalActionTypes } from '../../config'
+import { useHistory, RouteComponentProps } from 'react-router'
+import { WebsiteNavigator, INavMenuItem } from '@legend/ui'
 
 registerModule(portalModule.name, portalModule)
 
-export const Nav: FC<{}> = ({}) => {
+export const Nav: FC<RouteComponentProps & {
+  menu: INavMenuItem[],
+  accountMenu: INavMenuItem[],
+  portalApi: PortalApi,
+}> = ({
+  menu, accountMenu, portalApi
+}) => {
   const history = useHistory()
 
 
-  const { state, dispatch } = useGlobalModule(portalModule.name)
+  const { state, dispatch } = useGlobalModule<PortalModuleState, PortalActionTypes>(portalModule.name)
+  const [sltValue, setSltValue] = useState(menu[0].value)
 
   const logout = useCallback(() => {
-    history.replace('/login')
+    // portalApi.logout()
+    // .then(res => {
+    //   console.log('eeee', res)
+    //   // 
+    // })
+    dispatch(PortalActionTypes.updatePortalState, { info: {}, isLogin: false })
   }, [])
+
+  useEffect(() => {
+    if (!state.isLogin) {
+      history.replace('/login')
+    }
+  }, [state.isLogin])
+
+  const onNavTo = useCallback((menuItem: INavMenuItem) => {
+
+    const { value, link, path } = menuItem
+
+    setSltValue(value)
+
+    if (link) window.open(link)
+    else if (path) history.push(path)
+
+  }, [])
+
   return (
     <div>
-      <WebsiteNavigator 
-        selectedKey="1"
-        menu={[
-          { name: '数据总览', key: '1', link: 'https://cn.bing.com' },
-          { name: '标签集市', key: '2', link: 'https://cn.bing.com' },
-          { name: '人群管理', key: '3', link: 'https://cn.bing.com' },
-        ]}
+      <WebsiteNavigator
+        head={state.userName }
+        selectedKey={sltValue}
+        menu={menu}
+        accountMenu={accountMenu}
+        onMenuClick={onNavTo}
         onLogout={logout}
       />
     </div>

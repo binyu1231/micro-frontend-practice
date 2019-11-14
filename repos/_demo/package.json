@@ -13,6 +13,7 @@
     "@legend/helper-react-hooks": "^0.0.1",
     "@legend/ui": "^0.0.1",
     "@module-data/dashboard": "^0.0.1",
+    "@module-data/portal": "^0.0.1",
     "antd": "^3.25.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0"

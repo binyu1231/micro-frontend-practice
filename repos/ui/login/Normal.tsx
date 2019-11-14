@@ -1,7 +1,7 @@
 import React, { FC, useState, useCallback, ReactNode, Fragment } from 'react'
 import { Input, Button, Form, message, Card } from 'antd'
 import { useI18nLocale } from '@legend/helper-react-hooks'
-import { FormComponentProps } from 'antd/lib/form'
+import { FormComponentProps, ValidationRule } from 'antd/lib/form'
 import 'antd/lib/input/style/css'
 import 'antd/lib/button/style/css'
 import 'antd/lib/message/style/css'
@@ -11,14 +11,14 @@ import 'antd/lib/card/style/css'
 import { locales } from './i18n'
 
 
-interface ILoginProps extends FormComponentProps {
+export interface ILoginProps extends FormComponentProps {
   withCardWrapper?: boolean
   backboard?: ReactNode,
   header?: ReactNode,
   width?: number,
   height?: number,
-  usernameRules?: any[],
-  passwordRules?: any[],
+  usernameRules?: ValidationRule[],
+  passwordRules?: ValidationRule[],
   onSubmit?: (username: string, password: string) => void,
   [key: string]: any
 }

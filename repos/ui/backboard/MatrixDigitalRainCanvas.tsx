@@ -134,6 +134,7 @@ class Matrix {
   bars: RainBar[] = []
   charColSize: number
   needRender: boolean = false
+  stop: boolean = false
 
   constructor (canvas: HTMLCanvasElement, option: Partial<{ maxCol: number }>) {
     this.maxCol = option.maxCol || 50
@@ -151,7 +152,7 @@ class Matrix {
   }
 
   loop = () => {
-    
+    if (this.stop) return
     if (this.needRender) {
       this.render()
       this.needRender = false
@@ -162,7 +163,6 @@ class Matrix {
 
   render () {
     // 清画布
-    console.log(1)
     this.ctx.fillStyle = '#132553'
     this.ctx.fillRect(0, 0, this.w, this.h)
     
@@ -178,6 +178,10 @@ class Matrix {
     this.ctx.fillStyle = `hsl(213, 73%, ${~~(40 * char.trailRate) + 20 }%)`
     this.ctx.fillText(char.text, x * this.charColSize, y * this.charColSize)
   }
+
+  destory () {
+    this.stop = true
+  }
 }
 
 export const MatrixDigitalRainCanvas: FC<{
@@ -192,7 +196,9 @@ export const MatrixDigitalRainCanvas: FC<{
     canvas.width = document.documentElement.clientWidth
     canvas.height = document.documentElement.clientHeight
 
-    new Matrix(canvas, { maxCol: maxDimemsion })
+    const matrix = new Matrix(canvas, { maxCol: maxDimemsion })
+
+    return () => matrix.destory()
 
   }, [ref.current])
 

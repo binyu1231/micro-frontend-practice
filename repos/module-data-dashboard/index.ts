@@ -3,6 +3,7 @@ import { Dashboard } from './Dashboard'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import singleSpaReact from 'single-spa-react'
+import { dashboardModule } from './config'
 
 
 const lifecycles = singleSpaReact({
@@ -10,7 +11,7 @@ const lifecycles = singleSpaReact({
   ReactDOM,
   rootComponent: Dashboard as any,
   domElementGetter () {
-    return document.getElementById('module-data-dashboard')
+    return document.getElementById(dashboardModule.mountId)
   }
 })
 

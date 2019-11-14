@@ -11,7 +11,7 @@ export type PanelCardProps = {
   footer: any,
   expand: boolean,
   bodyStyle: any,
-  
+  loading: boolean,
   bodyCenter: boolean,
   [key: string]: any
 }
@@ -22,6 +22,7 @@ export const PanelCard: FC<Partial<PanelCardProps>> = ({
   headerContent, 
   footer,
   expand, 
+  loading,
   bodyStyle, 
   children, 
   bodyCenter,

@@ -1,34 +1,53 @@
-import React, { FC, useEffect, Component } from 'react'
+import React, { SFC, useEffect, Component, PureComponent } from 'react'
 import { BrowserRouter as Router, Route, Switch, RouteComponentProps } from 'react-router-dom'
 import { Login } from './login/Login'
 import { Nav } from './nav/Nav'
-import { portalModule, IPortalRootProps } from '../config/module'
+import { IPortalRootProps, PortalApi } from '../config'
 
 
-export class Root extends Component<IPortalRootProps> {
+const Root: SFC<IPortalRootProps> = ({
+  rootPath, 
+  signSuccessRedirectPath,
+  menu,
+  accountMenu,
+  portalApi,
+  systemId
+}) => {
+
+  return (
+    <Router>
+        <Switch>
+          <Route 
+            path={rootPath + '/login'} 
+            component={(routeProps: RouteComponentProps) => 
+              <Login { ...routeProps } 
+                portalApi={portalApi}
+                systemId={systemId}
+                signSuccessRedirectPath={signSuccessRedirectPath} />} />
+          <Route 
+            path={rootPath + '/'} 
+            component={(routeProps: RouteComponentProps) => 
+              <Nav { ...routeProps } 
+                portalApi={portalApi}
+                menu={menu} 
+                accountMenu={accountMenu} />} 
+          />
+        </Switch>
+      </Router>
+  )
+}
+
+export default class extends PureComponent<IPortalRootProps> {
 
   /**
    * rootComponent should implement componentDidCatch to avoid accidentally 
    * unmounting the entire single-spa application.
    */
-  public componentDidCatch () {
+  public componentDidCatch () {}
+  
+  
 
-  }
   public render () {
-    const { rootPath, signSuccessRedirectPath } = this.props
-    return (
-      <Router>
-        <Switch>
-          <Route 
-            path={rootPath + '/login'} 
-            component={(routeProps: RouteComponentProps) => 
-              <Login { ...routeProps } signSuccessRedirectPath={signSuccessRedirectPath} />} />
-          <Route 
-            path={rootPath + '/'} 
-            component={Nav} 
-          />
-        </Switch>
-      </Router>
-    )
+    return <Root {...this.props} />
   }
 }

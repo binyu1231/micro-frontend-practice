@@ -1,21 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import singleSpaReact from 'single-spa-react'
-import { Root } from './src/root'
-import { configOption } from './src/config'
-
+import rootComponent from './src/root'
+import { portalModule } from './config'
 
 const lifecycles = singleSpaReact({
   React, 
   ReactDOM,
-  rootComponent: Root as any,
+  rootComponent,
   domElementGetter () {
-    return document.getElementById(configOption.domId)
+    return document.getElementById(portalModule.mountId)
   }
 })
 
 export const bootstrap = [
-  lifecycles.bootstrap
+  lifecycles.bootstrap, (props) => {
+    console.log(2222, props)
+
+    return Promise.resolve(props)
+  }
 ]
 
 export const mount = [

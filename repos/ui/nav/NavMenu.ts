@@ -1,9 +1,9 @@
 export interface INavMenuItem {
-  key: string,
+  value: string,
   name: string,
   link?: string,
   path?: string,
   icon?: string,
   disabled?: boolean
-  subs?: INavMenuItem[]
+  children?: INavMenuItem[]
 }

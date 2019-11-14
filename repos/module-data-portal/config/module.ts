@@ -1,12 +1,16 @@
+import { IPackageModule } from '@legend/framework'
+import { InfoDto } from './api'
+
 export enum PortalActionTypes {
   updatePortalState = 'updatePortalState'
 }
 
 const state = {
-  userInfo: {} as any,
-  username: '123',
-  password: 'abc',
-  access: [] as string[]
+  info: {} as InfoDto,
+  userName: '',
+  passWord: '',
+  isLogin: false,
+  access: [] as string[],
 }
 
 const action = {
@@ -25,18 +29,18 @@ const action = {
 export type PortalModuleState = typeof state
 export type PortalModuleAction = typeof action
 
-export type PortalModule = {
+export interface IPortalModule extends IPackageModule {
   name: string,
   state: PortalModuleState,
   action: PortalModuleAction
 }
 
-export const portalModule: PortalModule = {
-  state, action, name: 'portal'
+export const portalModule: IPortalModule = {
+  mountId: 'module-data-portal',
+  name: 'portal',
+  state, 
+  action, 
 }
 
-export interface IPortalRootProps {
-  rootPath: string,
-  signSuccessRedirectPath: string
-}
+
 

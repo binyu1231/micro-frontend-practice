@@ -1,53 +1,45 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useCallback } from 'react'
+import { MatrixDigitalRainCanvas } from '@legend/ui'
 import { useHistory, RouteComponentProps } from 'react-router-dom'
 import { useGlobalModule } from '@legend/helper-react-hooks'
-import { portalModule, PortalActionTypes } from '../../config'
+import { portalModule, PortalActionTypes, PortalApi, LoginDto, InfoDto, PortalModuleState } from '../../config'
 import { NormalLogin } from '@legend/ui'
 
 const Login: FC<RouteComponentProps & {
-  signSuccessRedirectPath: string
+  signSuccessRedirectPath: string,
+  portalApi: PortalApi,
+  systemId: number
 }> = ({
-  signSuccessRedirectPath
+  signSuccessRedirectPath,
+  portalApi,
+  systemId,
 }) => {
 
   const history = useHistory()
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const { state, dispatch } = useGlobalModule(portalModule.name)
+  const { state, dispatch } = useGlobalModule<PortalModuleState, PortalActionTypes>(portalModule.name)
 
-  function handleLoginSubmit (username: string, password: string) {
-    dispatch(PortalActionTypes.updatePortalState, { username, password })
-    history.replace(signSuccessRedirectPath)
-  }
+  const handleLoginSubmit = useCallback(function submit (userName: string, passWord: string) {
+    /// 
+    portalApi.login({ userName, passWord, systemId })
+    .then((res: LoginDto) => {
+      portalApi.token = res.token
+      return portalApi.info()
+    })
+    .then((info: InfoDto) => {
+      dispatch(PortalActionTypes.updatePortalState, { info, isLogin: true })
+      history.replace(signSuccessRedirectPath)
+    })
+    
+  }, [])
 
   return (
-    <div style={{
-      position: 'fixed',
-      left: 0,
-      top: 0,
-      right: 0,
-      bottom: 0,
-      background: '#777'
-    }}>
-      {/* Login View */}
-      <div style={{
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        right: 0,
-        bottom: '10%',
-        width: 300,
-        height: 300,
-        margin: 'auto',
-        background: '#f7f7f7'
-      }}>
-        <NormalLogin 
-          onSubmit={(username: string, password: string) => {
-            handleLoginSubmit(username, password)
-          }}
-        ></NormalLogin>
-      </div>
-    </div>
+    <NormalLogin 
+      onSubmit={(username: string, password: string) => {
+        handleLoginSubmit(username, password)
+      }}
+      withCardWrapper
+      backboard={<MatrixDigitalRainCanvas />}
+    />
   )
 }
 
