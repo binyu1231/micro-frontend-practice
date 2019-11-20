@@ -1,8 +1,8 @@
 import React, { FC, useCallback, useState, useEffect } from 'react'
-import { registerModule, useGlobalModule } from '@legend/helper-react-hooks'
+import { registerModule, useGlobalModule, useI18nLocale } from '@legend/helper-react-hooks'
 import { portalModule, IPortalModule, PortalModuleState, PortalApi, PortalActionTypes } from '../../config'
 import { useHistory, RouteComponentProps } from 'react-router'
-import { WebsiteNavigator, INavMenuItem } from '@legend/ui'
+import { WebsiteNavigator, INavMenuItem, menuFlat } from '@legend/ui'
 
 registerModule(portalModule.name, portalModule)
 
@@ -18,6 +18,8 @@ export const Nav: FC<RouteComponentProps & {
 
   const { state, dispatch } = useGlobalModule<PortalModuleState, PortalActionTypes>(portalModule.name)
   const [sltValue, setSltValue] = useState(menu[0].value)
+  const [locale] = useI18nLocale()
+
 
   const logout = useCallback(() => {
     // portalApi.logout()
@@ -30,7 +32,7 @@ export const Nav: FC<RouteComponentProps & {
 
   useEffect(() => {
     if (!state.isLogin) {
-      history.replace('/login')
+      // history.replace('/login')
     }
   }, [state.isLogin])
 
@@ -45,6 +47,7 @@ export const Nav: FC<RouteComponentProps & {
 
   }, [])
 
+
   return (
     <div>
       <WebsiteNavigator
@@ -54,7 +57,9 @@ export const Nav: FC<RouteComponentProps & {
         accountMenu={accountMenu}
         onMenuClick={onNavTo}
         onLogout={logout}
+        locale={locale}
       />
+
     </div>
   )
 }

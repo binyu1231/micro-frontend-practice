@@ -38,7 +38,7 @@ const Login: FC<RouteComponentProps & {
         handleLoginSubmit(username, password)
       }}
       withCardWrapper
-      backboard={<MatrixDigitalRainCanvas />}
+      // backboard={<MatrixDigitalRainCanvas />}
     />
   )
 }

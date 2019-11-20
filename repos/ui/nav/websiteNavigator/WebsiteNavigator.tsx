@@ -3,16 +3,18 @@ import { Menu, Icon, Dropdown } from 'antd'
 import 'antd/lib/menu/style/css'
 import 'antd/lib/icon/style/css'
 import 'antd/lib/dropdown/style/css'
+import './style.css'
 
-import { INavMenuItem } from './NavMenu'
+import { INavMenuItem } from '../NavMenu'
 import { ClickParam } from 'antd/lib/menu'
+import { PlainObject } from '@legend/framework'
 
-function renderMenu(menu?: INavMenuItem[]) {
+function renderMenu(menu?: INavMenuItem[], locale?: PlainObject) {
   if (menu) {
     return menu.map((item) => {
       if (item.children) {
         return (
-          <Menu.SubMenu key={item.value} title={item.name}>
+          <Menu.SubMenu key={item.value} title={locale ? locale[item.name] : item.name}>
             { renderMenu(item.children) }
           </Menu.SubMenu>
         )
@@ -21,7 +23,7 @@ function renderMenu(menu?: INavMenuItem[]) {
       return (
         <Menu.Item key={item.value}>
           {item.icon && <Icon type={item.icon} />}
-          {item.name}
+          {locale ? locale[item.name] : item.name}
         </Menu.Item>
       )
     })
@@ -30,7 +32,7 @@ function renderMenu(menu?: INavMenuItem[]) {
   return null
 }
 
-function menuFlat (menu: INavMenuItem[]): INavMenuItem[] {
+export function menuFlat (menu: INavMenuItem[]): INavMenuItem[] {
   // return menu
   return menu.reduce<INavMenuItem[]>((acc, curr) => {
     acc.push(curr)
@@ -47,6 +49,7 @@ export const WebsiteNavigator: FC<{
   onMenuClick?: (menuItem: INavMenuItem, params: ClickParam) => void,
   onAccountMenuClick?: (params: ClickParam) => void
   onLogout?: () => void,
+  locale?: PlainObject
   [key: string]: any,
 }> = ({
   head,
@@ -57,6 +60,7 @@ export const WebsiteNavigator: FC<{
   selectedKey,
   className,
   onLogout,
+  locale,
   ...otherProps
 }) => {
 
@@ -88,21 +92,22 @@ export const WebsiteNavigator: FC<{
 
     return (
       <header
-        className="flex justify-between items-stretch border-b border-gray-300"
+        className="ui-nav flex justify-between items-stretch border-b border-gray-300"
+        style={{ backgroundColor: '#1d98db' }}
         {...otherProps}>
         <div className="flex-1">{head}</div>
         <Menu
           selectedKeys={slt}
           mode="horizontal"
-          style={{ borderBottom: 0 }}
+          style={{ borderBottom: 0, backgroundColor: 'transparent' }}
           onClick={handleMenuClick}
         >
-          {renderMenu(menu)}
+          {renderMenu(menu, locale)}
         </Menu>
 
         <Dropdown placement="bottomRight" overlay={
           <Menu onClick={handleAccountMenuClick}>
-            {renderMenu(accountMenu)}
+            {renderMenu(accountMenu, locale)}
             <Menu.Divider />
             <Menu.Item key="logout">
               <Icon type="poweroff" className="mr-2" />

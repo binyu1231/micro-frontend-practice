@@ -36,7 +36,7 @@ export class PortalApi extends Api implements IPortalApi {
 
 
   login (payload: LoginPayload) {
-    return this.post<LoginDto>('/userapi/login', payload)
+    return this.post<LoginDto>('/userapi/uniLogin', payload)
   }
 
   info () {
