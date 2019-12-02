@@ -1,0 +1,20 @@
+{
+  "name": "@module-data/bi-report",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@legend/framework": "^0.0.1",
+    "@legend/helper-react-hooks": "^0.0.1",
+    "@legend/ui": "^0.0.1",
+    "antd": "^3.26.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "single-spa-react": "^2.10.4"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.13",
+    "@types/react-dom": "^16.9.4",
+    "@types/single-spa-react": "^2.8.3"
+  }
+}

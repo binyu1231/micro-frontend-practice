@@ -1,11 +1,12 @@
-import React, { FC, useRef, useEffect } from 'react'
+import React, { FC, useRef, useEffect, useCallback } from 'react'
 import { cloneDeep, merge } from 'lodash'
 import echarts from 'echarts'
 import { NEED_SET } from '../utils'
 import { IChartProp } from '../utils/types'
+import { themeCategory10_1 } from '../color/themeCategory'
 
 const defaultOption = {
-  // color: NEED_SET,
+  // color: themeCategory10_1,
   tooltip: {
     trigger: 'item',
     formatter: (params) => {
@@ -65,6 +66,7 @@ export const PieChart: FC<Partial<PieChartProp>> = ({
 }) => {
 
   const ref = useRef(null)
+  const instance = useRef(null)
 
   useEffect(() => {
     const opt: any = cloneDeep(defaultOption)
@@ -72,42 +74,33 @@ export const PieChart: FC<Partial<PieChartProp>> = ({
     merge(opt, option)
     opt.series[0].data = values.map((val, i) => ({ value: val, name: legend[i] }))
 
-    const instance = echarts.init(ref.current)
-    instance.setOption(opt)
+    instance.current = echarts.init(ref.current)
+    render() 
+    
     
   }, [ref])
 
 
+  useEffect(() => {
+    render()
+  }, [value, legend, color, option])
+
+
+
+  const render = useCallback(() => {
+    if (instance.current === null) return
+    const opt: any = cloneDeep(defaultOption)
+    const values: any[] = value
+    merge(opt, option)
+    opt.series[0].data = values.map((val, i) => ({ value: val, name: legend[i] }))
+    opt.color = color || themeCategory10_1
+    instance.current.setOption(opt)
+
+  }, [value, legend, color, option])
+
+
   return (
-    <div {...otherProps} ref={ref} style={{ width: 200, height: 200 }}>111</div>
+    <div {...otherProps} ref={ref} style={{ width: 200, height: 200 }}></div>
   )
 }
 
-
-export default class extends React.Component<{
-  legend: string[] | string[][],
-  value: number[] | number[][]
-  color: string[] | string[][],
-  option: any,
-  theme: string,
-}> {
-
-
-  public render() {
-    const { value, legend, color, option, ...otherProps } = this.props
-
-    const opt = cloneDeep(defaultOption)
-    merge(opt, option)
-
-    const values: any[] = value
-    
-    if (color) {
-      (opt as any).color = color
-    }
-
-    opt.series[0].data = values.map((val, i) => ({ value: val, name: legend[i] }))
-    return (
-      111
-    )
-  }
-}

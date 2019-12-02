@@ -1,0 +1,44 @@
+import { Api } from "@legend/framework/api/Api"
+
+export interface LoginPayload { userName: string, passWord: string, systemId: number }
+export interface LoginDto { 
+  token: string,
+  agentId: number,
+  groupId: number,
+  systemType: string
+  customerId: number,
+  userIp: string,
+  userAgent: string,
+  userType: number,
+  userName: string,
+  userId: number,
+  user_ReadableName: string,
+}
+
+export interface InfoDto {
+
+}
+
+export interface LogoutDto {
+
+}
+
+export type LoginFunc = (payload: LoginPayload) => Promise<LoginDto>
+export type UserInfoFunc = () => Promise<InfoDto>
+
+
+export interface IBiReportApi {
+  enum: LoginFunc,
+  query: UserInfoFunc
+}
+
+export class BiReportApi extends Api implements IBiReportApi {
+
+  enum (payload: LoginPayload) {
+    return this.post<LoginDto>('/userapi/uniLogin', payload)
+  }
+
+  query () {
+    return this.get('/userapi/info').then<InfoDto>(res => res.data)
+  }
+}

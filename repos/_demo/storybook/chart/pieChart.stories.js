@@ -2,7 +2,7 @@ import React from 'react'
 import { PieChart } from '@legend/chart'
 import { PanelCard } from '@legend/ui'
 export default {
-  title: 'chart'
+  title: 'chart|pie'
 }
 
 export const Pie = () => <PieChart legend={['ab', 'cd']} value={[123, 231]} />

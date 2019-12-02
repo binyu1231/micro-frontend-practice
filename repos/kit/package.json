@@ -1,9 +1,10 @@
 {
-  "name": "@legend/helper-function",
+  "name": "@legend/kit",
   "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "d3-format": "^1.4.2",
     "lodash": "^4.17.15"
   },
   "devDependencies": {

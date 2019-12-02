@@ -4,6 +4,7 @@
   "main": "index.tsx",
   "license": "MIT",
   "dependencies": {
+    "@legend/kit": "^0.0.1",
     "echarts": "^4.3.0",
     "lodash": "^4.17.15",
     "react": "^16.11.0",
