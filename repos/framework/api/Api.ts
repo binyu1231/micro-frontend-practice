@@ -8,16 +8,23 @@ export class Api {
   public instance: Asker = null
   public static token: string
 
-  constructor(apiConf?: IApiConf, errorCallback?: (message: string) => void) {
+  constructor(
+    apiConf?: IApiConf, 
+    options?: { skipToken?: boolean, skipYLang?: boolean }
+  ) {
     apiConf = apiConf || {}
+    options = options || options
     const _before = apiConf.before
     const _after = apiConf.after
     // 处理 token
     apiConf.before = (conf) => {
       if (_before) conf = _before(conf)
-      Object.assign(conf.headers, {
-        token: Api.token,
-      })
+      
+      if (!options.skipToken) {
+        Object.assign(conf.headers, {
+          token: Api.token,
+        })
+      }
 
       return conf
     }
@@ -90,5 +97,4 @@ export class Api {
   public set token (t: string) {
     Api.token = t
   }
-  
 }

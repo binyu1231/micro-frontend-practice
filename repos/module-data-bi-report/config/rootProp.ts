@@ -1,4 +1,5 @@
 import { IPackageProp } from '@legend/framework'
+import { BiApi } from './api';
 
 export interface IBiReportAccess {
   /** 整体统计报表 */
@@ -29,5 +30,6 @@ export enum ReportEnum {
 }
 
 export interface IBiReportRootProps extends IPackageProp {
+  biApi: BiApi,
   access: Partial<IBiReportAccess>
 }

@@ -4,64 +4,17 @@ import { registerApplication, unloadApplication, start, getAppNames } from 'sing
 import { portalModule, IPortalRootProps, PortalApi } from '@module-data/portal/config'
 import { dashboardModule, IDashboardRootProps } from '@module-data/dashboard/config'
 import { registerModule, I18nLanguages } from '@legend/helper-react-hooks'
-import { SYSTEM } from '@legend/framework'
+import { portalProps, dashboardProps, biReportProps } from './props'
+import { biReportModule } from '@module-data/bi-report/config'
 
 
 const host = 'http://192.168.5.151:81'
 // import './style.css'
 require('./style.css')
 
-const portalProps: IPortalRootProps = {
-  portalApi: new PortalApi({ baseUrl: host }),
-  rootPath: '',
-  systemId: SYSTEM.DNA,
-  signSuccessRedirectPath: '/dashboard',
-  menu: [
-    { name: '$数据总览', value: '1', path: '/dashboard' },
-    { name: '$标签集市', value: '2', path: '/label-market' },
-    {
-      name: '$人群管理', 
-      value: '3', 
-      children: [
-        { name: '$数据总览', value: '3-1', path: '/dashboard' },
-        { name: '$标签集市', value: '3-2', path: '/dashboard' },
-        { name: '$人群管理', value: '3-3', path: '/dashboard' },
-      ]
-    },
-  ],
-  accountMenu: [
-    { name: '$数据总览', value: '1', link: 'https://cn.bing.com' },
-    { name: '$标签集市', value: '2', link: 'https://cn.bing.com' },
-    { name: '$人群管理', value: '3', link: 'https://cn.bing.com' },
-  ],
-  access: { login: true },
-  i18nLocale: {
-    [I18nLanguages.ZH_CN]: {
-      '$数据总览': '数据总览',
-      '$标签集市': '标签集市',
-      '$人群管理': '人群管理',
-    },
-    [I18nLanguages.EN_US]: {
-      '$数据总览': 'Dashboard',
-      '$标签集市': 'Tag Market',
-      '$人群管理': 'Segments',
-    }
-  }
-
-}
-
-const dashboardProps: IDashboardRootProps = {
-  rootPath: '/dashboard',
-  access: {
-    tagCloud: true,
-    idGraph: true,
-    geo: true,
-    tagCoverage: true,
-    predefinedSegment: true,
-    demographics: true,
-    tagStatistics: true,
-    preference: true,
-    idTrend: true,
+function pathPrefix(prefix: string) {
+  return function(location: Location) {
+      return window.location.pathname.indexOf(prefix) === 0
   }
 }
 
@@ -83,6 +36,13 @@ export function mount () {
     pathPrefix('/dashboard'),
     dashboardProps
   )
+
+  registerApplication(
+    biReportModule.name,
+    () => import('@module-data/bi-report'),
+    pathPrefix('/bi-report'),
+    biReportProps
+  )
   
   // registerApplication(
   //   'label-market',
@@ -93,11 +53,7 @@ export function mount () {
   //   }
   // )
   
-  function pathPrefix(prefix: string) {
-    return function(location: Location) {
-        return location.pathname.indexOf(prefix) === 0
-    }
-  }
+  
   
   start()
 }

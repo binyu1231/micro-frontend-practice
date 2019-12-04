@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "@coloration/asker": "^0.6.5",
+    "lodash.debounce": "^4.0.8",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "single-spa": "^4.4.1",

@@ -1,4 +1,4 @@
-import moment from 'moment'
+import moment, { Moment } from 'moment'
 
 export enum MomentFormatEnum {
   YYYY_MM_DD = 'YYYY-MM-DD'
@@ -17,4 +17,4 @@ export const last15DaysMoment = [last15DayMoment, lastDayMoment]
 export const last7DaysMoment = [last7DayMoment, lastDayMoment]
 export const last3DaysMoment = [last3DayMoment, lastDayMoment]
 
-export { moment }
+export { moment, Moment }

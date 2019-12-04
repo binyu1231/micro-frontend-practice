@@ -1,13 +1,16 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useMemo } from 'react'
 import { CardContentLayout, HeaderTab } from '@legend/ui'
-import { CustomOverview } from './report/CustomOverview'
+import { ReportOverivew } from './report'
 import { Card } from 'antd'
-import { ReportEnum } from './config'
+import { ReportEnum, BiApi } from './config'
+import { last3DayMoment } from '@legend/kit'
 
 
-
-
-export const BiReport: FC<{}> = () => {
+export const BiReport: FC<{
+  biApi: BiApi
+}> = ({
+  biApi
+}) => {
 
   const [tabs, setTabs] = useState<HeaderTab[]>([
     { name: '整体统计报表', key: ReportEnum.overview },
@@ -21,6 +24,10 @@ export const BiReport: FC<{}> = () => {
 
   const [activeTabKey, setKey] = useState<string>(ReportEnum.overview)
 
+  const Component = useMemo(() => {
+    console.log('eeeee', biApi)
+    return <ReportOverivew biApi={ biApi } />
+  }, [])
   return (
     <div className="h-screen flex flex-col">
       <CardContentLayout
@@ -29,10 +36,7 @@ export const BiReport: FC<{}> = () => {
         activeTabKey={activeTabKey}
         onTabChange={setKey}
       >
-        <CustomOverview 
-          columns={[]}
-          formConfigure={[]}
-        />
+        { Component }
       </CardContentLayout>
     </div>
   )
