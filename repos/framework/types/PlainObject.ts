@@ -6,7 +6,7 @@ export type PlainObject<T = any> = {
 export type SqlString = string
 
 
-export type CommonOption<T = number> = { 
+export type CommonOption<T = number | string> = { 
   name: string, 
   value: T, 
   disabled?: boolean 

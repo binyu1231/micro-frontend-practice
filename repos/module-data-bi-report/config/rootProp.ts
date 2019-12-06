@@ -1,7 +1,7 @@
-import { IPackageProp } from '@legend/framework'
+import { IPackageProp, PlainObject } from '@legend/framework'
 import { BiApi } from './api';
 
-export interface IBiReportAccess {
+export interface IBiReportAccess extends PlainObject<boolean> {
   /** 整体统计报表 */
   overview: boolean,
   /** 平台统计报表 */

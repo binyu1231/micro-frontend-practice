@@ -14,7 +14,7 @@ export const portalProps: IPortalRootProps = {
       name: '$人群管理', 
       value: '3', 
       children: [
-        { name: '$数据总览', value: '3-1', path: '/dashboard' },
+        { name: '$渠道管理', value: '3-1', path: '/channel' },
         { name: '$统计报表', value: '3-2', path: '/dashboard' },
         { name: '$人群管理', value: '3-3', path: '/dashboard' },
       ]

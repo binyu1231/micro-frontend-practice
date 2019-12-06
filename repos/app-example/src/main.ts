@@ -4,8 +4,13 @@ import { registerApplication, unloadApplication, start, getAppNames } from 'sing
 import { portalModule, IPortalRootProps, PortalApi } from '@module-data/portal/config'
 import { dashboardModule, IDashboardRootProps } from '@module-data/dashboard/config'
 import { registerModule, I18nLanguages } from '@legend/helper-react-hooks'
-import { portalProps, dashboardProps, biReportProps } from './props'
+import { 
+  portalProps, 
+  dashboardProps, 
+  biReportProps,
+  channelManageProps } from './props'
 import { biReportModule } from '@module-data/bi-report/config'
+import { channelManageModule } from '@module-data/channel-manage'
 
 
 const host = 'http://192.168.5.151:81'
@@ -44,6 +49,13 @@ export function mount () {
     biReportProps
   )
   
+
+  registerApplication(
+    channelManageModule.name,
+    () => import('@module-data/channel-manage'),
+    pathPrefix(channelManageProps.rootPath),
+    channelManageProps
+  )
   // registerApplication(
   //   'label-market',
   //   () => import('@module-data/label-market'),

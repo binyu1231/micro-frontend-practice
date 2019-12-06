@@ -2,6 +2,9 @@ import Asker, { AskerConf, object2Query, splitBlob, AskerJsonpConf, AskerBatchCo
 
 
 export interface IApiConf extends AskerConf {}
+export interface IApiOptions {
+  skipToken?: boolean, skipYLang?: boolean
+}
 
 export class Api {
 
@@ -10,7 +13,7 @@ export class Api {
 
   constructor(
     apiConf?: IApiConf, 
-    options?: { skipToken?: boolean, skipYLang?: boolean }
+    options?: IApiOptions
   ) {
     apiConf = apiConf || {}
     options = options || options

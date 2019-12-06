@@ -13,6 +13,7 @@
     "@legend/helper-react-hooks": "^0.0.1",
     "@legend/ui": "^0.0.1",
     "@module-data/bi-report": "^1.0.0",
+    "@module-data/channel-manage": "^0.0.1",
     "@module-data/dashboard": "^0.0.1",
     "@module-data/portal": "^0.0.1",
     "antd": "^3.25.0",

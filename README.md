@@ -65,6 +65,8 @@ app-example $ yarn build
 ### Note
 
 1. lerna 配合 yarn: 应该设置根目录下的 `lerna.json`, `package.json`
+2. 放在同一个项目里的各个package, 为了能在 storybook 预览,需要保证 React, 版本一直
+
 
 ```js
 // lerna.json
