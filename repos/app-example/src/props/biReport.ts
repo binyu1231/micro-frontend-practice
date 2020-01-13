@@ -1,7 +1,7 @@
 import { IBiReportRootProps, BiApi } from "@module-data/bi-report/config";
 
 export const biReportProps: IBiReportRootProps = {
-  biApi: new BiApi(
+  api: new BiApi(
     { baseUrl: 'http://10.0.3.36:8080/bi-query/api' },
     { skipToken: true }
   ),

@@ -62,6 +62,10 @@ app-example $ yarn build
 
 
 
+
+
+
+
 ### Note
 
 1. lerna 配合 yarn: 应该设置根目录下的 `lerna.json`, `package.json`

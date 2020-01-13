@@ -2,8 +2,9 @@ import React, { FC, useState, useCallback, useEffect } from 'react'
 import { CardContentLayout, SelfPaginationTable } from '@legend/ui'
 import { Row, Col, Input, Select, Button, Table, Tooltip, Icon, Modal, message } from 'antd'
 import { IAccountDto } from '../config'
-import { useHistory, RouteComponentProps } from 'react-router'
+import { RouteComponentProps } from 'react-router'
 import { useStore } from '../store'
+import { Link } from 'react-router-dom'
 // import 
 const PAGE_SIZE = 20
 
@@ -11,7 +12,6 @@ const PAGE_SIZE = 20
 
 export const List: FC<RouteComponentProps> = () => {
 
-  const history = useHistory()
   const { store } = useStore()
   const [customerId, setCustomerId] = useState<number | ''>('')
   const [channelId, setChannelId] = useState<number | ''>('')
@@ -96,14 +96,13 @@ export const List: FC<RouteComponentProps> = () => {
   }, [])
 
   return (
-    <div className="h-screen flex flex-col">
-      <CardContentLayout
-        title="渠道管理">
+      <CardContentLayout title="渠道管理">
         <Row style={{ marginBottom: 10 }}>
           <Col span={16}>
             <Input.Search
               onSearch={handleAccountNameSearch}
               style={{ width: 220, marginRight: 10 }} placeholder="搜索账号ID或名称" />
+            <label>广告主:&nbsp;</label>´
             <Select
               value={customerId}
               onChange={handleCustomerChange}
@@ -117,6 +116,7 @@ export const List: FC<RouteComponentProps> = () => {
                 </Select.Option>
               ))}
             </Select>
+            <label>渠道:&nbsp;</label>
             <Select
               value={channelId}
               style={{ width: 160, marginRight: 10 }}
@@ -130,12 +130,9 @@ export const List: FC<RouteComponentProps> = () => {
           </Col>
           <Col span={8}>
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Button
-                onClick={() => {
-                  history.push(store.rootPath + '/edit/0')
-                }}
-                type="primary"
-                icon="plus">创建</Button>
+              <Link to="/edit/0">
+                <Button type="primary" icon="plus">创建</Button>
+              </Link>
             </div>
           </Col>
         </Row>
@@ -165,6 +162,5 @@ export const List: FC<RouteComponentProps> = () => {
           </Col>
         </Row>
       </CardContentLayout>
-    </div>
   )
 }

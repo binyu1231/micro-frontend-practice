@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@legend/chart": "^0.0.1",
     "@legend/framework": "^0.0.1",
     "@legend/helper-react-hooks": "^0.0.1",
     "@legend/ui": "^0.0.1",

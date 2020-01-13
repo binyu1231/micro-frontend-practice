@@ -1,4 +1,4 @@
-import { Store } from '@legend/framework'
+import { ReactStore } from '@legend/framework'
 import { IChannelManageRootProps, IChannelsDto } from './config'
 
 
@@ -7,7 +7,7 @@ export interface IChannelManageStore extends IChannelManageRootProps {
 }
 
 
-export const S = new Store<IChannelManageStore>({
+export const S = new ReactStore<IChannelManageStore>({
   channel: []
 })
 

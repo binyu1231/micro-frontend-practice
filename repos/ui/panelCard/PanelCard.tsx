@@ -35,7 +35,8 @@ export const PanelCard: FC<Partial<PanelCardProps>> = ({
   return (
     <div className={[
       'cm-panel flex flex-col',
-      expanding ? 'fullscreen' : ''
+      expanding ? 'fullscreen' : '',
+      className || ''
     ].join(' ')} {...otherProps}>
       <div className="cm-panel-header select-none">
         <div className="title">
@@ -63,8 +64,6 @@ export const PanelCard: FC<Partial<PanelCardProps>> = ({
       <div className="footer">
         { footer }
       </div>
-    
-
     </div>
   )
 }

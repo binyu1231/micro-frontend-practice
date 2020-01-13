@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { Store } from '@legend/framework/store/Store'
+import { ReactStore as Store } from '@legend/framework'
 
 export default {
   title: 'framework'

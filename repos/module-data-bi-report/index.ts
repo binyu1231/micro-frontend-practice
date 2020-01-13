@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom'
 import singleSpaReact from 'single-spa-react'
 
 
-import { BiReport } from './BiReport'
+import { Root } from './root'
 import { biReportModule } from './config'
 
 
 const lifecycles = singleSpaReact({
   React: React as any,
   ReactDOM,
-  rootComponent: BiReport as any,
+  rootComponent: Root as any,
   domElementGetter () {
     return document.getElementById(biReportModule.mountId)
   }
@@ -29,4 +29,4 @@ export const unmount = [
 ]
 
 
-export { BiReport } 
+export { Root } 

@@ -30,6 +30,6 @@ export enum ReportEnum {
 }
 
 export interface IBiReportRootProps extends IPackageProp {
-  biApi: BiApi,
+  api: BiApi,
   access: Partial<IBiReportAccess>
 }

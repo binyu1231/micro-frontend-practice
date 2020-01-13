@@ -19,6 +19,10 @@ export interface IAccountsFetchPayload {
   channelId: number | '',
 }
 
+export interface ICustomerNamePayload {
+  customerId: number
+}
+
 export interface IChannelManageDto<T = any> {
   code: number
   data: T
@@ -54,6 +58,7 @@ export interface IChannelManageApi {
   accountDelete: (payload: IAccountDeletePayload) => Promise<void>
   accountsFetch: (payload: IAccountsFetchPayload) => Promise<IAccountsFetchDto>
   channelsFetch: () => Promise<IChannelsDto[]>
+  customerName: (payload: ICustomerNamePayload) => Promise<string>
 }
 
 export class ChannelManageApi extends Api implements IChannelManageApi {
@@ -83,5 +88,9 @@ export class ChannelManageApi extends Api implements IChannelManageApi {
   channelsFetch() {
     // 直接数组
     return this.get<IChannelsDto[]>('/channel/getAllChannels', undefined, { getCache: true })
+  }
+
+  customerName (payload: ICustomerNamePayload) {
+    return this.get<string>('/channel/getCustomerName', payload, { responseType: 'text' })
   }
 }

@@ -1,12 +1,10 @@
-import React, { FC, useRef, useEffect, useCallback } from 'react'
+import * as React from 'react'
+import ReactEcharts, { ObjectMap } from 'echarts-for-react'
 import { cloneDeep, merge } from 'lodash'
-import echarts from 'echarts'
-import { NEED_SET } from '../utils'
-import { IChartProp } from '../utils/types'
-import { themeCategory10_1 } from '../color/themeCategory'
+import { numberFormat } from '@legend/kit'
 
 const defaultOption = {
-  // color: themeCategory10_1,
+  // color: NEED_SET,
   tooltip: {
     trigger: 'item',
     formatter: (params) => {
@@ -14,7 +12,7 @@ const defaultOption = {
       return `
         <div>
           <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: ${color};"></span>
-          ${name}: ${value} (${percent}%) 
+          ${name}: ${numberFormat(value)} (${percent}%) 
         </div>
       `
     }
@@ -32,7 +30,7 @@ const defaultOption = {
       type: 'pie',
       radius: ['45%', '65%'],
       center: ['50%', '43%'],
-      data: NEED_SET,
+      data: [],
       itemStyle: {
         emphasis: {
           shadowBlur: 10,
@@ -55,52 +53,39 @@ const defaultOption = {
   ]
 }
 
-export interface PieChartProp extends IChartProp {}
-export const PieChart: FC<Partial<PieChartProp>> = ({
-  legend,
-  value,
-  color,
-  option,
-  theme,
-  ...otherProps
-}) => {
+const initState = {
 
-  const ref = useRef(null)
-  const instance = useRef(null)
-
-  useEffect(() => {
-    const opt: any = cloneDeep(defaultOption)
-    const values: any[] = value
-    merge(opt, option)
-    opt.series[0].data = values.map((val, i) => ({ value: val, name: legend[i] }))
-
-    instance.current = echarts.init(ref.current)
-    render() 
-    
-    
-  }, [ref])
-
-
-  useEffect(() => {
-    render()
-  }, [value, legend, color, option])
-
-
-
-  const render = useCallback(() => {
-    if (instance.current === null) return
-    const opt: any = cloneDeep(defaultOption)
-    const values: any[] = value
-    merge(opt, option)
-    opt.series[0].data = values.map((val, i) => ({ value: val, name: legend[i] }))
-    opt.color = color || themeCategory10_1
-    instance.current.setOption(opt)
-
-  }, [value, legend, color, option])
-
-
-  return (
-    <div {...otherProps} ref={ref} style={{ width: 200, height: 200 }}></div>
-  )
 }
 
+type State = Readonly<typeof initState>
+
+export class PieChart extends React.Component<{
+  legend: string[] | string[][],
+  value: number[] | number[][]
+  color?: string[] | string[][],
+  option?: ObjectMap,
+  theme?: string,
+}, State> {
+
+  readonly state = initState
+
+  public render() {
+    const { value, legend, color, option, ...otherProps } = this.props
+
+    const opt = cloneDeep(defaultOption)
+    merge(opt, option)
+
+    const values: any[] = value
+    
+    if (color) {
+      (opt as any).color = color
+    }
+
+    opt.series[0].data = values.map((val, i) => ({ value: val, name: legend[i] }))
+    return (
+      <ReactEcharts
+        style={{ height: '100%' }}
+        option={opt} {...otherProps} />
+    )
+  }
+}

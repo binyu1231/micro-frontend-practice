@@ -1,7 +1,7 @@
 import React, { SFC, useState, useCallback, useEffect, useRef } from 'react'
 import { SelfPaginationTable } from '@legend/ui'
 import { moment, Moment, last3DayMoment, MomentFormatEnum } from '@legend/kit'
-import { Table, Form, Button, DatePicker } from 'antd'
+import { Table, Form, Button, DatePicker, Row, Col } from 'antd'
 import 'antd/lib/date-picker/style/css'
 import { QueryParameter } from './QueryParameter'
 import { QueryType, QueryLogicType, FieldName, displayNameMap, EnumCategory, BiMetadataDto } from '../config/types'
@@ -73,7 +73,7 @@ const _CustomReport: SFC<ICustomReportProps> = ({
   const [loading, setLoading] = useState(false)
   const [dataSource, setData] = useState<PlainObject[]>([])
 
-  const updateDimension = useCallback((fieldName: FieldName) => {
+  const updateDimension = useCallback((fieldName: FieldName, options: BiMetadataDto[]) => {
     const cols = formatColumns.current.slice()
     const firstCol = cols[0]
     delete firstCol.sorter
@@ -95,6 +95,7 @@ const _CustomReport: SFC<ICustomReportProps> = ({
       firstCol.title = originDto.displayName
 
     }
+
     queryParams.current.queryFields[0] = fieldName
     queryParams.current.orderBys[0].orderBy = fieldName
     formatColumns.current = cols
@@ -123,6 +124,7 @@ const _CustomReport: SFC<ICustomReportProps> = ({
   }, [formConfigure, form])
 
   const getList = useCallback(() => {
+
     setLoading(true)
     biApi.query(queryParams.current)
       .then(res => {
@@ -144,7 +146,7 @@ const _CustomReport: SFC<ICustomReportProps> = ({
       if (err) return
       const { current } = queryParams
       if (!defaultDimension) {
-        updateDimension(values.type)
+        updateDimension(values.type, options)
         current.orderBys[0].orderBy = values.type
       }
 
@@ -155,7 +157,7 @@ const _CustomReport: SFC<ICustomReportProps> = ({
 
 
 
-  }, [form, formatFilters, getList])
+  }, [form, formatFilters, getList, options])
 
   /// 初始化
   useEffect(() => {
@@ -173,48 +175,49 @@ const _CustomReport: SFC<ICustomReportProps> = ({
     /// 设置filter
     formatFilters()
 
-    // 设置维度
-    if (defaultDimension === undefined) {
-      // 动态维度
-      biApi.metadata({ type: 1 })
-        .then(options => {
-          setOptions(options)
-          return options.filter(opt => opt.logicCategory === EnumCategory.dimension)
+    biApi.metadata({ type: 1 })
+      .then(options => {
+
+        setOptions(options)
+
+        updateDimension(defaultDimension || DEFAULT_FIELD, options)
+
+        if (defaultDimension === undefined) {
+          const dOptions = options.filter(opt => opt.logicCategory === EnumCategory.dimension)
             .map<CommonOption>(opt => ({ name: opt.displayName, value: opt.fieldName }))
+
+          setDimensionOptions(dOptions)
+        }
+
+        /// 设置 columns 
+        /// 配置表格项，表格项有计算 columns 所以不用接口字段配置，使用中文title 配置
+        // 需要用配置排序，不能用 colConfig.filter(columns.includes)
+        const cols = columns
+          .map(col => colConfig.find(conf => conf[0] === col))
+          .filter(col => col)
+
+        /// 前端计算的项目(竞价率, col[1] === null)需要过滤掉
+        const fields: FieldName[] = cols.map(col => col[1]).filter(field => field)
+        const { queryFields } = queryParams.current
+        queryParams.current.queryFields = [queryFields[0]].concat(fields)
+
+        const otherCols = cols.map(col => {
+          const originDto = options.find(opt => opt.fieldName === col[1])
+
+          
+          if (originDto) {
+            col[3] = sorterGenMap.get(originDto.displayType)(originDto.fieldName)
+          }
+          
+          return normalColGenerator.apply(null, col)
         })
-        .then(setDimensionOptions)
 
-      updateDimension(DEFAULT_FIELD)
-    }
-    else {
-      // 设置默认维度
-      updateDimension(defaultDimension)
+        formatColumns.current = [formatColumns.current[0]].concat(otherCols)
 
-    }
-    
-    /// 设置 columns 
-    /// 配置表格项，表格项有计算 columns 所以不用接口字段配置，使用中文title 配置
-    // 需要用配置排序，不能用 colConfig.filter(columns.includes)
-    const cols = columns
-      .map(col => colConfig.find(conf => conf[0] === col))
-      .filter(col => col)
+        getList()
+      })
 
-    /// 前端计算的项目(竞价率, col[1] === null)需要过滤掉
-    const fields: FieldName[] = cols.map(col => col[1]).filter(field => field)
-    const { queryFields } = queryParams.current
-    queryParams.current.queryFields = [queryFields[0]].concat(fields)
 
-    const otherCols = cols.map(col => {
-      const originDto = options.find(opt => opt.fieldName === col[1])
-      if (originDto) {
-        col[3] = sorterGenMap.get(originDto.displayType)(originDto.fieldName)
-      }
-      return normalColGenerator.apply(null, col)
-    })
-    console.log('eeeeee', otherCols)
-    formatColumns.current = [formatColumns.current[0]].concat(otherCols)
-
-    getList()
   }, [])
 
   return (
@@ -222,32 +225,34 @@ const _CustomReport: SFC<ICustomReportProps> = ({
       <Form layout="inline" onSubmit={handleSubmit}>
         {/* row1 */}
         {/* 如果外部没有设置维度，默认维度是可变的下拉框 */}
-        <div>
-          {!defaultDimension && formItemRenderer('维度', 'type', 'select', dimensionOptions, { initialValue: DEFAULT_FIELD })}
-          {formConfigure && formConfigure.map(conf => formItemRenderer.apply(null, conf))}
-        </div>
-        <div>
-          <Form.Item label="日期">
-            {form.getFieldDecorator('date', {
-              initialValue: range
-            })(Array.isArray(range) ?
-              <DatePicker.RangePicker
-                style={{ width: 300, margin: '3px 10px 0 0' }}
-                disabledDate={disabledDate} /> :
+        <Row className="mb-1">
+          <Col xl={14} md={24}>
+            {!defaultDimension && formItemRenderer('维度', 'type', 'select', dimensionOptions, { initialValue: DEFAULT_FIELD })}
+            {formConfigure && formConfigure.map(conf => formItemRenderer.apply(null, conf))}
+          </Col>
+          <Col xl={10} md={24}>
+            <div className="flex justify-end">
+              <Form.Item label="日期">
+                {form.getFieldDecorator('date', {
+                  initialValue: range
+                })(Array.isArray(range) ?
+                  <DatePicker.RangePicker
+                    style={{ margin: '3px 8px 0 0' }}
+                    disabledDate={disabledDate} /> :
 
-              <DatePicker
-                style={{ width: 170, margin: '3px 10px 0 0' }}
-                disabledDate={disabledDate} />
-            )}
-          </Form.Item>
-          <Form.Item style={{ marginRight: 0 }}>
-            <Button
-              style={{ width: 160, marginTop: 3 }}
-              type="primary"
-              htmlType="submit"
-              loading={loading}>查询</Button>
-          </Form.Item>
-        </div>
+                  <DatePicker
+                    style={{ margin: '3px 8px 0 0' }}
+                    disabledDate={disabledDate} />
+                )}
+              </Form.Item>
+              <Button
+                style={{ width: 140, marginTop: 3 }}
+                type="primary"
+                htmlType="submit"
+                loading={loading}>查询</Button>
+            </div>
+          </Col>
+        </Row>
       </Form>
       <SelfPaginationTable
         dataSource={dataSource}

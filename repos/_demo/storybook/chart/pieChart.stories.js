@@ -6,13 +6,14 @@ export default {
 }
 
 export const Pie = () => <PieChart legend={['ab', 'cd']} value={[123, 231]} />
+
 export const PieWithCard = () => (
   <PanelCard 
-    title="Pie Chart" 
+    title="Pie Chart"
     expand
     style={{ width: 500, height: 300, margin: '20px auto' }}
     bodyCenter>
     <Pie />
-
   </PanelCard>
 )
+

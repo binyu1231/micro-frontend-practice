@@ -12,6 +12,12 @@ export interface EnumPayload {
   fieldName: string
 }
 
+export interface ReportCookieMappingPayload {
+  since: string,
+  until: string,
+  logicType: string
+}
+
 
 export type MetadataDto = BiMetadataDto[]
 export type EnumDto = CommonOption[]
@@ -27,23 +33,44 @@ export type QueryDto = {
   status: string
 }
 
+export type CookieMappingItemDto = {
+  exchange_name: string
+  uv: number
+  uv_real_match: number
+  pv_match: number
+  total: number
+  uv_match: number
+  pv: number
+  yoyi_total: number
+  pv_real_match: number
+  time: string
+}
+
+export type CookieMappingDto = CookieMappingItemDto[]
 
 export type MetadataFunc = (payload: MetadataPayload) => Promise<MetadataDto>
 export type QueryFunc = (payload: QueryParameter) => Promise<QueryDto>
-
+export type EnumFunc = (fieldName: FieldName, defaultOption?: CommonOption) => Promise<EnumDto>
+export type OptionsFetcherFunc = () => Promise<EnumDto>
+export type CookieMappingFunc = (payload: ReportCookieMappingPayload) => Promise<CookieMappingDto>
 
 export interface IBiApi {
   metadata: MetadataFunc,
-  query: QueryFunc
+  enum: EnumFunc,
+  query: QueryFunc,
+  creativeOptionsFetcher: OptionsFetcherFunc,
+  platformOptionsFetcher: OptionsFetcherFunc,
+  provinceOptionsFetcher: OptionsFetcherFunc,
+  requestOptionsFetcher: OptionsFetcherFunc,
+  terminalOptionsFetcher: OptionsFetcherFunc,
+  cookieMapping: CookieMappingFunc,
 }
 
 export class BiApi extends Api implements IBiApi {
 
   metadata(payload: MetadataPayload) {
     payload.logicType = payload.logicType || QueryLogicType.bi
-
-    return this.get('/bi/getMetadataByType', payload, { getCache: true })
-      .then<MetadataDto>(res => res.data)
+    return this.get<MetadataDto>('/bi/getMetadataByType', payload, { getCache: true })
   }
 
   enumStore = {}
@@ -81,11 +108,15 @@ export class BiApi extends Api implements IBiApi {
     return this.enum(FieldName.province, { name: '全国', value: '' })
   }
   /** 流量采买类型 */
-  requestOptionsFetcher () {
+  requestOptionsFetcher() {
     return this.enum(FieldName.requestTypeName)
   }
   /** 流量终端类型 */
-  terninalOptionsFetcher () {
+  terminalOptionsFetcher() {
     return this.enum(FieldName.requestTerminal, { name: '不限', value: '' })
+  }
+
+  cookieMapping(payload: ReportCookieMappingPayload) {
+    return this.get<CookieMappingDto>('/monitor/getCookiemapping', payload)
   }
 }

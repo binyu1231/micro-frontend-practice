@@ -1,3 +1,6 @@
+/**
+ * 整体统计报表
+*/
 import React, { FC, useState, useEffect } from 'react'
 import { BiApi } from '../config'
 import { FieldName } from '../config/types'
@@ -5,20 +8,20 @@ import { DEFAULT_VALUE } from './util'
 import { CommonOption } from '@legend/framework'
 import { CustomReport } from './CustomReport'
 import { last7DaysMoment } from '@legend/kit'
+import { IReportProps } from './types'
 
-export const ReportOverivew: FC<{
-  biApi: BiApi
-}> = ({
+export const ReportOverivew: FC<IReportProps> = ({
   biApi
 }) => {
 
     const [creativeOptions, setCreativeOptions] = useState<CommonOption[]>([])
-    const [platformOptions, setPlatformOptions] = useState<CommonOption[]>([])
+    const [terminalOptions, setTerminalOptions] = useState<CommonOption[]>([])
 
     useEffect(() => {
       biApi.creativeOptionsFetcher().then(setCreativeOptions)
-      biApi.platformOptionsFetcher().then(setPlatformOptions)
+      biApi.terminalOptionsFetcher().then(setTerminalOptions)
     }, [])
+
     return (
       <CustomReport
         biApi={biApi}
@@ -41,7 +44,7 @@ export const ReportOverivew: FC<{
         ]}
 
         formConfigure={[
-          ['流量终端', FieldName.requestTerminal, 'select', platformOptions, { initialValue: DEFAULT_VALUE }],
+          ['流量终端', FieldName.requestTerminal, 'select', terminalOptions, { initialValue: DEFAULT_VALUE }],
           ['展现形式', FieldName.displayForm, 'select', creativeOptions, { initialValue: DEFAULT_VALUE }],
         ]}
       />
