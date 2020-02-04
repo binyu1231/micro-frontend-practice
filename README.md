@@ -94,6 +94,9 @@ Hooks 不能从其他模块引入使用。
 *原因*: 不能监听到文件变化，修改后页面无响应
 
 
+```
+$ lerna add @component/ui --scope=@container/bi-query
+```
 
 ### other
 
