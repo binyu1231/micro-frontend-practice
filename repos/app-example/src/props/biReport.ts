@@ -1,8 +1,8 @@
-import { IBiReportRootProps, BiApi } from "@module-data/bi-report/config";
+import { IBiReportRootProps, BiApi } from "@module-data/bi-report/lib/config";
 
 export const biReportProps: IBiReportRootProps = {
   api: new BiApi(
-    { baseUrl: 'http://10.0.3.36:8080/bi-query/api' },
+    { baseUrl: 'http://biapi.yoyi.com.cn/bi-query/api' },
     { skipToken: true }
   ),
   rootPath: '/bi-report',

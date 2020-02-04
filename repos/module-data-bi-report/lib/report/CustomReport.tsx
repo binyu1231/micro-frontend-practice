@@ -6,7 +6,7 @@ import 'antd/lib/date-picker/style/css'
 import { QueryParameter } from './QueryParameter'
 import { QueryType, QueryLogicType, FieldName, displayNameMap, EnumCategory, BiMetadataDto } from '../config/types'
 import { BiApi, QueryDto } from '../config'
-import { PlainObject, catchError, CommonOption } from '@legend/framework'
+import { PlainObject, catchError, PlainOption } from '@legend/framework'
 import { formItemRendererGenerator, sorterGenMap, normalFilterGenerator, formatQueryDateParams, equalFilterGenerator, DEFAULT_VALUE, colConfig, normalColGenerator } from './util'
 import { FormComponentProps } from 'antd/lib/form'
 import { FormEvent } from 'react'
@@ -67,7 +67,7 @@ const _CustomReport: SFC<ICustomReportProps> = ({
 }) => {
 
   const queryParams = useRef<QueryParameter>(Object.assign({}, defaultParams))
-  const [dimensionOptions, setDimensionOptions] = useState<CommonOption[]>([])
+  const [dimensionOptions, setDimensionOptions] = useState<PlainOption[]>([])
   const [options, setOptions] = useState<BiMetadataDto[]>([])
   const formatColumns = useRef<any>([{ title: DEFAULT_DISPLAY_NAME, width: 150, dataIndex: DEFAULT_FIELD }])
   const [loading, setLoading] = useState(false)
@@ -184,7 +184,7 @@ const _CustomReport: SFC<ICustomReportProps> = ({
 
         if (defaultDimension === undefined) {
           const dOptions = options.filter(opt => opt.logicCategory === EnumCategory.dimension)
-            .map<CommonOption>(opt => ({ name: opt.displayName, value: opt.fieldName }))
+            .map<PlainOption>(opt => ({ name: opt.displayName, value: opt.fieldName }))
 
           setDimensionOptions(dOptions)
         }

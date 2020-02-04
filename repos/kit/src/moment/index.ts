@@ -1,9 +1,13 @@
 import moment, { Moment } from 'moment'
 
 export enum MomentFormatEnum {
-  YYYY_MM_DD = 'YYYY-MM-DD'
+  YYYY_MM_DD = 'YYYY-MM-DD',
+  YYYY_MM_DD_HH_MM_SS = 'YYYY-MM-DD HH:mm:ss',
 }
 
+
+
+export const todayMoment = moment()
 export const lastDayMoment = moment().subtract(1, 'days')
 export const last3DayMoment = moment().subtract(3, 'days')
 export const last7DayMoment = moment().subtract(7, 'days')

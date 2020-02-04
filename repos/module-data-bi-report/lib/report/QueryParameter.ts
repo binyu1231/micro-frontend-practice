@@ -1,4 +1,5 @@
 import { FieldName, QueryType, QueryLogicType, FilterOperator } from "../config/types"
+import { moment, MomentFormatEnum } from "@legend/kit"
 
 
 export class QueryParameterFilter {
@@ -28,9 +29,9 @@ export class QueryParameter {
   logicType: QueryLogicType = QueryLogicType.bi
   queryFields: FieldName[] = []
 
-  orderBys: QueryParameterOrderBy[]
-  since: YYYY_MM_DD
-  until: YYYY_MM_DD
-  filters: QueryParameterFilter[]
+  orderBys: QueryParameterOrderBy[] = []
+  since: YYYY_MM_DD = moment().format(MomentFormatEnum.YYYY_MM_DD)
+  until: YYYY_MM_DD = moment().format(MomentFormatEnum.YYYY_MM_DD)
+  filters: QueryParameterFilter[] = []
   pageInfo: QueryParameterPageInfo
 }

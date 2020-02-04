@@ -28,8 +28,7 @@
  * }
 **/
 
-import React, { useState, Dispatch, SetStateAction } from 'react'
-import { createContext, Context, useCallback, useContext, ReactNode } from "react"
+import React, { useState, Dispatch, SetStateAction, createContext, Context, useCallback, useContext, ReactNode } from 'react'
 import { PlainObject } from "../types"
 
 interface IContext<M> { store: M, setStore: Dispatch<SetStateAction<M>> }

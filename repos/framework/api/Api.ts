@@ -16,7 +16,7 @@ export class Api {
     options?: IApiOptions
   ) {
     apiConf = apiConf || {}
-    options = options || options
+    options = options || {}
     const _before = apiConf.before
     const _after = apiConf.after
     // 处理 token

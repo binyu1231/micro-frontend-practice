@@ -1,10 +1,12 @@
 import { Select } from 'antd'
-import { CommonOption } from '../types'
+import { PlainOption } from '../types'
 import { FC, SFC, Fragment, ReactNode } from 'react'
-import { normal } from '../helper/func'
+
+
+function normal<T> (o: T) { return o }
 
 export const Options: SFC<{
-  options: CommonOption[],
+  options: PlainOption[],
   nameField?: string,
   valField?: string,
   Option?: ReactNode,

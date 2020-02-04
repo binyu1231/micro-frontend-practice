@@ -1,4 +1,5 @@
 export * from './src/array'
 export * from './src/number'
 export * from './src/moment'
+export * from 'lodash'
 export * from './src/dom'

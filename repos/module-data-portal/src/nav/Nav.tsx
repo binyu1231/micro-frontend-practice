@@ -32,7 +32,7 @@ export const Nav: FC<RouteComponentProps & {
 
   useEffect(() => {
     if (!state.isLogin) {
-      // history.replace('/login')
+      history.replace('/login')
     }
   }, [state.isLogin])
 

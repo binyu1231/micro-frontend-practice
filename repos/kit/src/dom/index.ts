@@ -17,3 +17,5 @@ export function getOffset (dom: HTMLElement, parentDom?: HTMLElement) {
   return { width, height, left, top }
 
 }
+
+export * from './download'

@@ -1,32 +1,35 @@
 /**
- * AD统计报表
+ * 地域统计报表
 */
 import React, { FC, useState, useEffect } from 'react'
+import { BiApi } from '../config'
 import { FieldName } from '../config/types'
-import { DEFAULT_VALUE, boolSelectOptions } from './util'
-import { CommonOption } from '@legend/framework'
+import { DEFAULT_VALUE } from './util'
+import { PlainOption } from '@legend/framework'
 import { CustomReport } from './CustomReport'
 import { last7DaysMoment } from '@legend/kit'
 import { IReportProps } from './types'
 
-
-
-export const ReportAd: FC<IReportProps> = ({
+export const ReportGeo: FC<IReportProps> = ({
   biApi
 }) => {
 
-    const [creativeOptions, setCreativeOptions] = useState<CommonOption[]>([])
-    const [terminalOptions, setTerminalOptions] = useState<CommonOption[]>([])
+    const [creativeOptions, setCreativeOptions] = useState<PlainOption[]>([])
+    const [terminalOptions, setTerminalOptions] = useState<PlainOption[]>([])
+    const [provinceOptions, setProvinceOptions] = useState<PlainOption[]>([])
 
     useEffect(() => {
       biApi.creativeOptionsFetcher().then(setCreativeOptions)
-      biApi.terminalOptionsFetcher().then(setTerminalOptions)
+      biApi.platformOptionsFetcher().then(setTerminalOptions)
+      biApi.provinceOptionsFetcher().then(setProvinceOptions)
     }, [])
 
     return (
       <CustomReport
         biApi={biApi}
         range={last7DaysMoment}
+        sort={{ field: FieldName.adxName, ascending: false }}
+        defaultDimension={FieldName.adxName}
         columns={[
           '询价量',
           '竞价量',
@@ -45,11 +48,7 @@ export const ReportAd: FC<IReportProps> = ({
         formConfigure={[
           ['流量终端', FieldName.requestTerminal, 'select', terminalOptions, { initialValue: DEFAULT_VALUE }],
           ['展现形式', FieldName.displayForm, 'select', creativeOptions, { initialValue: DEFAULT_VALUE }],
-          ['是否原生', FieldName.relevantType, 'select', boolSelectOptions, { initialValue: DEFAULT_VALUE }],
-          ['代理商ID', 'agent_id'],
-          ['广告主ID', 'customer_id'],
-          ['计划ID', 'campaign_id'],
-          ['订单ID', 'order_id'],
+          ['省份', FieldName.requestTerminal, 'select', provinceOptions, { initialValue: DEFAULT_VALUE }],
         ]}
       />
     )

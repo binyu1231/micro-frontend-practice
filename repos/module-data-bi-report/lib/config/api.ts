@@ -1,7 +1,7 @@
 import { Api } from "@legend/framework/api/Api"
 import { BiMetadataDto, QueryLogicType, FieldName } from "./types"
 import { QueryParameter } from "../report/QueryParameter"
-import { PlainObject, SqlString, CommonOption } from "@legend/framework"
+import { PlainObject, SqlString, PlainOption } from "@legend/framework"
 
 export interface MetadataPayload {
   type: number,
@@ -20,7 +20,7 @@ export interface ReportCookieMappingPayload {
 
 
 export type MetadataDto = BiMetadataDto[]
-export type EnumDto = CommonOption[]
+export type EnumDto = PlainOption[]
 export type QueryDto = {
   data: {
     data: PlainObject[],
@@ -50,14 +50,16 @@ export type CookieMappingDto = CookieMappingItemDto[]
 
 export type MetadataFunc = (payload: MetadataPayload) => Promise<MetadataDto>
 export type QueryFunc = (payload: QueryParameter) => Promise<QueryDto>
-export type EnumFunc = (fieldName: FieldName, defaultOption?: CommonOption) => Promise<EnumDto>
+export type EnumFunc = (fieldName: FieldName, defaultOption?: PlainOption) => Promise<EnumDto>
 export type OptionsFetcherFunc = () => Promise<EnumDto>
 export type CookieMappingFunc = (payload: ReportCookieMappingPayload) => Promise<CookieMappingDto>
+export type DownloadFunc = (payload: QueryParameter) => Promise<string>
 
 export interface IBiApi {
   metadata: MetadataFunc,
   enum: EnumFunc,
   query: QueryFunc,
+  download: DownloadFunc,
   creativeOptionsFetcher: OptionsFetcherFunc,
   platformOptionsFetcher: OptionsFetcherFunc,
   provinceOptionsFetcher: OptionsFetcherFunc,
@@ -75,7 +77,7 @@ export class BiApi extends Api implements IBiApi {
 
   enumStore = {}
 
-  enum(fieldName: FieldName, defaultOption?: CommonOption) {
+  enum(fieldName: FieldName, defaultOption?: PlainOption) {
 
     /// 先从缓存读取
     if (this.enumStore.hasOwnProperty(fieldName)) {
@@ -85,7 +87,7 @@ export class BiApi extends Api implements IBiApi {
     /// 服务器不允许 get 方法
     return this.post('/bi/getEnums?' + Api.object2Query({ fieldName }))
       .then<EnumDto>(res => {
-        const options: CommonOption[] = res.map(opt => ({ name: opt.value, value: opt.key }))
+        const options: PlainOption[] = res.map(opt => ({ name: opt.value, value: opt.key }))
         if (defaultOption) options.unshift(defaultOption)
 
         return this.enumStore[fieldName] = options
@@ -95,6 +97,11 @@ export class BiApi extends Api implements IBiApi {
   query(payload: QueryParameter) {
     return this.post<QueryDto>('/bi/getQuery', payload)
   }
+
+  download(payload: any) {
+    return this.post<string>('/package/download', payload, { responseType: 'text' })
+  }
+
   /** 创意下拉选项 */
   creativeOptionsFetcher() {
     return this.enum(FieldName.displayForm, { name: '不限', value: '' })

@@ -120,6 +120,13 @@ export enum FieldName {
   deepLinkEvoke = 'deep_link_evoke',
   deepLinkEvokeSuccess = 'deep_link_evoke_success',
   deepLinkEvokeFail = 'deep_link_evoke_fail',
+
+  week = 'week',
+  uv = 'uv',
+  hourOfWeek = 'hour_of_week',
+  deviceTypeWeek = 'device_type_week',
+  adFormatWeek = 'ad_format_week',
+  provinceWeek = 'province_week',
 }
 
 export const displayNameMap: Map<FieldName, string> = new Map([
@@ -219,6 +226,13 @@ export const displayNameMap: Map<FieldName, string> = new Map([
   [FieldName.deepLinkEvoke, 'Deeplink中间页起吊量'],
   [FieldName.deepLinkEvokeSuccess, 'Deeplink中间页起吊成功量'],
   [FieldName.deepLinkEvokeFail, 'Deeplink中间页起吊失败量' ],
+
+  [FieldName.week, 'week'],
+  [FieldName.uv, 'uv'],
+  [FieldName.hourOfWeek, 'hour_of_week'],
+  [FieldName.deviceTypeWeek, 'device_type_week'],
+  [FieldName.adFormatWeek, 'ad_format_week'],
+  [FieldName.provinceWeek, 'province_week'],
 ])
 export enum QueryType {
   entityQuery = 'entityQuery'

@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import singleSpaReact from 'single-spa-react'
 
 
-import { Root } from './root'
-import { biReportModule } from './config'
+import { Root } from './lib/root'
+import { biReportModule } from './lib/config'
 
 
 const lifecycles = singleSpaReact({

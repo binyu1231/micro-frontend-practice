@@ -1,6 +1,6 @@
 import React from 'react'
 import { Root } from '@module-data/bi-report'
-import { BiApi } from '@module-data/bi-report/config'
+import { BiApi } from '@module-data/bi-report/lib/config'
 export default {
   title: 'module | module data/bi report'
 }
