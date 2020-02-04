@@ -1,6 +1,6 @@
-# Legend
+# micro framework
 
-Micro Front-End Development Template
+Micro Front-End Development Framework
 
 ### Use
 
@@ -14,14 +14,14 @@ $ lerna link
 $ lerna bootstrap
 
 # storybook
-$ cd repos/_demo
-_demo $ yarn book
+$ cd packages/_component-example
+_component-example $ yarn book
 
 # a project
-$ cd repos/app-example
-app-example $ yarn start 
+$ cd packages/_context-example
+_context-example $ yarn start 
 # or 
-app-example $ yarn build
+_context-example $ yarn build
 ```
 
 ### Lib
@@ -62,7 +62,14 @@ app-example $ yarn build
 
 
 
+### Flow
 
+#### install dependences
+
+
+``` bash
+$ lerna add @component/ui --scope=@container/some-container -S
+```
 
 
 
@@ -94,9 +101,6 @@ Hooks 不能从其他模块引入使用。
 *原因*: 不能监听到文件变化，修改后页面无响应
 
 
-```
-$ lerna add @component/ui --scope=@container/bi-query
-```
 
 ### other
 
