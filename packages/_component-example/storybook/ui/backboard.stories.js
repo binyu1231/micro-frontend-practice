@@ -1,5 +1,5 @@
 import React from 'react'
-import { MatrixDigitalRainBackboard, MatrixDigitalRainCanvas } from '@legend/ui'
+import { MatrixDigitalRainBackboard, MatrixDigitalRainCanvas } from '@component/ui'
 
 export default {
   title: 'ui/backboard'

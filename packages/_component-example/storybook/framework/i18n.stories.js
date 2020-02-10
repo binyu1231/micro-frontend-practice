@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react'
-import { ExampleButton } from '@legend/ui'
+import { ExampleButton } from '@component/ui'
 import { 
   I18nProvider, 
   I18nLanguages, 
   useI18nLocale, 
   useI18nLang,
-} from '@legend/helper-react-hooks'
+} from '@micro/framework'
 import notes from './i18n.notes.md'
 
 export default {
-  title: 'i18n',
+  title: 'framework|i18n',
   parameters: { notes }
 }
 

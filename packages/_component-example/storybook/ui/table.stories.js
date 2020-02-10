@@ -1,5 +1,5 @@
 import React from 'react'
-import { SelfPaginationTable } from '@legend/ui'
+import { SelfPaginationTable } from '@component/ui'
 import { Table } from 'antd'
 
 

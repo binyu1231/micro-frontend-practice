@@ -1,5 +1,5 @@
 import React from 'react'
-import { ExampleButton } from '@legend/ui'
+import { ExampleButton } from '@component/ui'
 
 export default {
   title: 'ui/ExampleButton'

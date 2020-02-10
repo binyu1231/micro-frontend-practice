@@ -1,4 +1,4 @@
-import { IPackageModule } from '@micro/framework'
+import { IContainerModule } from '@micro/framework'
 import { InfoDto } from './api'
 
 export enum PortalActionTypes {
@@ -29,7 +29,7 @@ const action = {
 export type PortalModuleState = typeof state
 export type PortalModuleAction = typeof action
 
-export interface IPortalModule extends IPackageModule {
+export interface IPortalModule extends IContainerModule {
   name: string,
   state: PortalModuleState,
   action: PortalModuleAction

@@ -1,6 +1,5 @@
 import React from 'react'
-import { PanelCard } from '@legend/ui'
-import { ExampleButton } from '@legend/ui'
+import { PanelCard, ExampleButton } from '@component/ui'
 export default {
   title: 'ui/PanelCard'
 }

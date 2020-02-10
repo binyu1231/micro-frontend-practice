@@ -1,103 +1,52 @@
-import Asker, { AskerConf, object2Query, splitBlob, AskerJsonpConf, AskerBatchConf } from '@coloration/asker'
+import Asker, { AskerConf, object2Query, splitBlob, AskerResponse } from '@coloration/asker'
+import { PlainObject } from '../types'
 
-
-export interface IApiConf extends AskerConf {}
-export interface IApiOptions {
-  skipToken?: boolean, skipYLang?: boolean
+export interface IApiConf extends AskerConf {
+  skipToken?: boolean
 }
 
-export class Api {
+export class Api extends Asker {
+  
+  public static store: PlainObject = {}
 
-  public instance: Asker = null
-  public static token: string
+  constructor(apiConf?: IApiConf) {
 
-  constructor(
-    apiConf?: IApiConf, 
-    options?: IApiOptions
-  ) {
+    super(apiConf)
+
+    this.conf
+
     apiConf = apiConf || {}
-    options = options || {}
+    
     const _before = apiConf.before
     const _after = apiConf.after
     // 处理 token
-    apiConf.before = (conf) => {
+    this.conf.before = (conf: IApiConf) => {
       if (_before) conf = _before(conf)
       
-      if (!options.skipToken) {
+      if (!apiConf.skipToken) {
         Object.assign(conf.headers, {
-          token: Api.token,
+          token: Api.store.token,
         })
       }
 
       return conf
     }
 
-    apiConf.after = (res) => {
+    this.conf.after = (res: AskerResponse) => {
       res = res.data
       if (_after) res = _after(res)
       return res
     }
-    
-
-    const o = new Asker(apiConf)
-    this.instance = o
   }
-
-  static get = Asker.get
-  static post = Asker.post
-  static put = Asker.put
-  static head = Asker.head
-  static delete = Asker.delete
-  static patch = Asker.patch
-  static option = Asker.option
-  static jsonp = Asker.jsonp
-  static batch = Asker.batch
 
   static object2Query = object2Query
   static splitBlob = splitBlob
-  
-  public get<T = any> (url?: string, params?: any, conf?: IApiConf) {
-    return this.instance.get<T>(url, params, conf)
-  }
-
-  public head<T = any> (url?: string, params?: any, conf?: IApiConf) {
-    return this.instance.head<T>(url, params, conf)
-  }
-
-  public delete<T = any> (url?: string, params?: any, conf?: IApiConf) {
-    return this.instance.delete<T>(url, params, conf)
-  }
-
-  public option<T = any> (url?: string, params?: any, conf?: IApiConf) {
-    return this.instance.option<T>(url, params, conf)
-  }
-  
-
-  public post<T = any> (url?: string, body?: any, conf?: IApiConf) {
-    return this.instance.post<T>(url, body, conf)
-  }
-
-  public put<T = any> (url?: string, body?: any, conf?: IApiConf) {
-    return this.instance.put<T>(url, body, conf)
-  }
-
-  public patch<T = any> (url?: string, body?: any, conf?: IApiConf) {
-    return this.instance.patch<T>(url, body, conf)
-  }
-
-  public jsonp<T = any> (url?: string, body?: any, conf?: AskerJsonpConf) {
-    return this.instance.jsonp<T>(url, body, conf)
-  }
-
-  public batch<T = any> (url?: string, body?: any, conf?: AskerBatchConf) {
-    return this.instance.batch<T>(url, body, conf)
-  }
 
   public get token () {
-    return Api.token
+    return Api.store.token
   }
 
   public set token (t: string) {
-    Api.token = t
+    Api.store.token = t
   }
 }

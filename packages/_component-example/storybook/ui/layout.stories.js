@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Footer, Header, NormalLayout, CardContentLayout } from '@legend/ui'
+import { Footer, Header, NormalLayout, CardContentLayout } from '@component/ui'
 
 
 export default {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { NormalLogin, MatrixDigitalRainBackboard, MatrixDigitalRainCanvas } from '@legend/ui'
+import { NormalLogin, MatrixDigitalRainBackboard, MatrixDigitalRainCanvas } from '@component/ui'
 
 export default {
   title: 'ui/login'

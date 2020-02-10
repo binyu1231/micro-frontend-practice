@@ -1,5 +1,5 @@
 import React from 'react'
-import { WebsiteNavigator } from '@legend/ui'
+import { WebsiteNavigator } from '@component/ui'
 export default {
   title: 'ui/nav'
 }
