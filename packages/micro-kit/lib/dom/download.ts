@@ -1,8 +1,12 @@
-export function downloadAsFile (content: Blob, filename: string) {
+export function download (content: any, filename?: string) {
   const link = document.createElement('a')
-  link.href = window.URL.createObjectURL(content)
+  link.href = content
   link.download = filename
   link.click()
+}
+
+export function downloadAsFile (content: Blob, filename: string) {
+  return download(window.URL.createObjectURL(content), filename)
 }
 
 export function downloadAsCsv (content: string, filename: string): void {

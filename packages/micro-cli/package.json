@@ -1,0 +1,27 @@
+{
+  "name": "@micro/cli",
+  "version": "0.0.1",
+  "description": "> TODO: description",
+  "author": "WangBinyu <406279919@qq.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "lerna": "^3.20.2"
+  }
+}

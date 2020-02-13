@@ -16,3 +16,22 @@ export function microDelay(fn: (...args: any[]) => any) {
     })
   }
 }
+
+export function macroDelay (fn: (...args: any[]) => any) {
+
+  let count = 0
+  let cache = []
+
+  return function (...args: any[]) {
+    cache[0] = args
+
+    if (count === 0) {
+      setImmediate(() => {
+        fn.apply(null, cache[0])
+        cache = []
+        count = 0
+      })
+    }
+    count++
+  }
+}

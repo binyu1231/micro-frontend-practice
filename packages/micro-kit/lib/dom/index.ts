@@ -19,3 +19,4 @@ export function getOffset (dom: HTMLElement, parentDom?: HTMLElement) {
 }
 
 export * from './download'
+export * from './copyToclipboard'

@@ -1,5 +1,5 @@
 import { PlainObject } from "../types"
-import { microDelay } from "./util"
+import { microDelay } from "@micro/kit"
 
 export interface IGlobalModule<T = PlainObject> {
   state: T,
