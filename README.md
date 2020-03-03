@@ -97,7 +97,7 @@ $ lerna add @component/ui --scope=@container/some-container -S
 Hooks 不能从其他模块引入使用。 
 
 
-2. 并且子项目的项目依赖不使用本地路径 `"@legend/ui":"file:../"` 而**使用版本号** `"@legend/ui":"^0.01"`
+2. 并且子项目的项目依赖不使用本地路径 `"@component/ui":"file:../"` 而**使用版本号** `"@component/ui":"^0.01"`
 *原因*: 不能监听到文件变化，修改后页面无响应
 
 

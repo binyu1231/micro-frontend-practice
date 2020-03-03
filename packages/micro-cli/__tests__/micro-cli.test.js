@@ -1,6 +1,6 @@
 'use strict';
 
-const microCli = require('..');
+const microCli = require('../bin/micro');
 
 describe('micro-cli', () => {
     it('needs tests');
