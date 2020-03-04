@@ -1,4 +1,4 @@
-import { Api, IApiConf, IApiOptions } from "@micro/framework"
+import { Api, IApiConf } from "@micro/framework"
 
 export interface IAccountSavePayload {
   customerId: number
@@ -63,12 +63,12 @@ export interface IChannelManageApi {
 
 export class ChannelManageApi extends Api implements IChannelManageApi {
 
-  constructor (apiConf?: IApiConf, options?: IApiOptions) {
+  constructor (apiConf?: IApiConf) {
 
-    options = options || {}
+    
 
-    options.skipToken = true
-    super(apiConf, options)
+    apiConf.skipToken = true
+    super(apiConf)
   }
 
   accountSave(payload: IAccountSavePayload) {
