@@ -24,4 +24,6 @@ exports.handler = function (argv) {
 
   cd(p)
   cp('-R', path.resolve(__dirname, '../../template/container'), name)
+  cd(name)
+  exec('npx yarn install')
 }

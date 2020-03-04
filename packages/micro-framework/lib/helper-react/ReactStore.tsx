@@ -29,7 +29,7 @@
 **/
 
 import React, { useState, Dispatch, SetStateAction, createContext, Context, useCallback, useContext, ReactNode } from 'react'
-import { PlainObject } from "../types"
+import { PlainObject } from "@coloration/kit"
 
 interface IContext<M> { store: M, setStore: Dispatch<SetStateAction<M>> }
 

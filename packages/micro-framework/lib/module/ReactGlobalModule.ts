@@ -1,6 +1,6 @@
 import { GSM, IGlobalModule } from './GlobalModule'
 import { useState, useCallback, useEffect } from 'react'
-import { PlainObject } from '../types'
+import { PlainObject } from '@coloration/kit'
 
 const mapCache = new Map<Function, PlainObject>()
 

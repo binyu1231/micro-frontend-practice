@@ -1,4 +1,4 @@
-import { Api, IApiConf } from "@micro/framework"
+import { Api, IApiConf } from "@coloration/micro-framework"
 
 export interface IListFetchPayload {
   searchKey?: string,

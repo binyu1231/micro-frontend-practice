@@ -1,5 +1,5 @@
 import Asker, { AskerConf, object2Query, splitBlob, AskerResponse } from '@coloration/asker'
-import { PlainObject } from '../types'
+import { PlainObject } from '@coloration/kit'
 
 export interface IApiConf extends AskerConf {
   skipToken?: boolean

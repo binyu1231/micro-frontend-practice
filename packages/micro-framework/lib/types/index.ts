@@ -1,8 +1,4 @@
 
-export type PlainObject<T = any> = {
-  [key:string]: T
-}
-
 export type SqlString = string
 
 

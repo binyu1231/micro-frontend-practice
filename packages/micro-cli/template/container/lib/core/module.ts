@@ -1,4 +1,4 @@
-import { IContainerModule } from "@micro/framework"
+import { IContainerModule } from "@coloration/micro-framework"
 
 
 export enum DemoActionType {}

@@ -1,4 +1,5 @@
-import { PlainObject, IContainerProp } from "@micro/framework";
+import { IContainerProp } from "@coloration/micro-framework";
+import { PlainObject } from '@coloration/kit'
 import { DemoApi } from "./api";
 
 export interface IDemoAccess extends PlainObject<boolean> {

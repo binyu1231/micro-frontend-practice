@@ -29,7 +29,7 @@
 **/
 
 import { useState, useCallback, useEffect } from 'react'
-import { PlainObject } from "../types"
+import { PlainObject } from "@coloration/kit"
 
 
 export class ReactHookStore<T extends PlainObject> {

@@ -1,4 +1,4 @@
-import { ReactStore } from '@micro/framework'
+import { ReactStore } from '@coloration/micro-framework'
 import { IDemoRootProps, IListItemDto } from './core'
 
 

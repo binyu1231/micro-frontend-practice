@@ -1,4 +1,4 @@
-import { PlainObject } from '../types'
+import { PlainObject } from '@coloration/kit'
 
 export interface IContainerProp {
   rootPath: string
