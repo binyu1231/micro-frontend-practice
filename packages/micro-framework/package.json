@@ -1,11 +1,11 @@
 {
   "name": "@coloration/micro-framework",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "lib/index.ts",
   "license": "MIT",
   "dependencies": {
     "@coloration/asker": "^0.7.1",
-    "@coloration/kit": "^0.0.5",
+    "@coloration/kit": "^0.0.7",
     "antd": "3.24.2",
     "lodash.debounce": "^4.0.8",
     "react": "^16.11.0",

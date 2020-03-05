@@ -1,4 +1,5 @@
 require('shelljs/global')
+var path = require('path')
 
 exports.command = 'create <name>'
 exports.desc = 'create project'
@@ -9,8 +10,9 @@ exports.builder = function (yargs) {
 
 exports.handler = function (argv) {
   const { name } = argv
-  mkdir(name)
-  mkdir(`${name}/packages`)
-  touch(`${name}/see.js`)
-  echo(`create [${ name }] in ${pwd()}`)
+
+  cp('-R', path.resolve(__dirname, '../../template/project'), name)
+  cd(name)
+  exec('npx yarn install')
+  echo(`create a project [${name}]`)
 }

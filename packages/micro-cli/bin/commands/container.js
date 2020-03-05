@@ -2,7 +2,7 @@ require('shelljs/global')
 const path = require('path')
 
 exports.command = 'container <name> [path]'
-exports.desc = 'generate on container in the [path] or "./"'
+exports.desc = 'generate one container in the [path] or "./"'
 
 exports.builder = function (yargs) {
   yargs

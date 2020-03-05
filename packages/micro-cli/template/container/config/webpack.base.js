@@ -6,22 +6,11 @@ module.exports = {
   entry: path.resolve(__dirname, './lib/index.ts'),
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, './dist'),
+    path: path.join(__dirname, '../dist'),
     publicPath: '/dist'
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.json']
-  },
-  devServer: {
-    open: true,
-    port: 9000,
-    noInfo: true,
-    host: '0.0.0.0',
-    publicPath: '/dist',
-    contentBase: path.join(__dirname, './public'),
-    historyApiFallback: {
-      index: 'index.html',
-    }
   },
   plugins: [
     // 拆分css 文件

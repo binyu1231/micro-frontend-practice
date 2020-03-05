@@ -1,18 +1,15 @@
 {
-  "name": "container-demo",
+  "name": "context-demo",
   "version": "0.0.1",
-  "main": "dist/bundle.js",
-  "scripts": {
-    "start": "webpack-dev-server --config ./config/webpack.dev.js",
-    "build": "webpack --config ./config/webpack.build.js"
-  },
+  "license": "MIT",
   "dependencies": {
-    "@coloration/kit": "^0.0.7",
     "@coloration/micro-framework": "^0.0.2",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
-    "react-router-dom": "^5.1.2",
-    "single-spa-react": "^2.10.3"
+    "container-demo": "^0.0.1",
+    "single-spa": "^4.4.1"
+  },
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build": "webpack"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
@@ -24,19 +21,16 @@
     "@babel/preset-typescript": "^7.6.0",
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.3",
-    "@types/react-router-dom": "^5.1.1",
-    "@types/single-spa-react": "^2.8.3",
     "autoprefixer": "^9.6.4",
     "babel-loader": "^8.0.6",
+    "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-nested": "^4.1.2",
     "postcss-url": "^8.0.0",
-    "single-spa": "^4.4.1",
     "tailwindcss": "^1.1.2",
-    "terser-webpack-plugin": "^2.3.5",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0"

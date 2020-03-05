@@ -16,15 +16,28 @@ export const List: FC<RouteComponentProps> = () => {
   return (
     <div>
       This is the list, mock data from <code>core/api.ts</code>
-      { store.list.map(item => (
-        <div>
-          <span>{item.id}</span>
-          <span>{item.name}</span>
-          { store.access.edit && (
-            <Link to={'/edit/' + item.id }><button>Edit</button></Link>
-          ) }
-        </div>
-      ))}
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Opt</th>
+          </tr>
+        </thead>
+        <tbody>
+          { store.list.map(item => (
+          <tr key={item.id}>
+            <td>{item.id}</td>
+            <td>{item.name}</td>
+            { store.access.edit && (
+              <td><Link to={'/edit/' + item.id }><button>Edit</button></Link></td>
+            ) }
+          </tr>
+        ))}
+        </tbody>
+      </table>
+
+      
     </div>
   )
 }

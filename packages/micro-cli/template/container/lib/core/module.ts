@@ -1,4 +1,4 @@
-import { IContainerModule } from "@coloration/micro-framework"
+import { IContainerModule, IGlobalModule } from "@coloration/micro-framework"
 
 
 export enum DemoActionType {}
@@ -9,13 +9,13 @@ const action = {}
 export interface IDemoState extends Readonly<typeof state> {}
 export interface IDemoAction extends Readonly<typeof action> {}
 
-export interface IDemoModule extends IContainerModule {
+export interface IDemoModule<T> extends IContainerModule {
   name: string
-  state: IDemoState
-  action: IDemoAction
+  mountId: string,
+  action: { [key: string]: <K = any>(state: T, payload: K) => any }
 }
 
-export const demoModule: IDemoModule = {
+export const demoModule: IDemoModule<IDemoState> = {
   mountId: 'demo',
   name: 'demo',
   state,
