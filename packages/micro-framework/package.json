@@ -1,6 +1,6 @@
 {
   "name": "@coloration/micro-framework",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "lib/index.ts",
   "license": "MIT",
   "dependencies": {

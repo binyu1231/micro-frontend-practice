@@ -1,0 +1,30 @@
+{
+  "name": "component-demo",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "book": "start-storybook",
+    "build-book": "build-storybook"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-typescript": "^7.6.0",
+    "@storybook/html": "^5.2.5",
+    "@storybook/react": "^5.2.3",
+    "autoprefixer": "^9.6.4",
+    "babel-loader": "^8.0.6",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-nested": "^4.1.2",
+    "postcss-url": "^8.0.0",
+    "tailwindcss": "^1.1.2"
+  },
+  "gitHead": "625c66277222a8a0f0541c2b7f749f018b53bd3b"
+}

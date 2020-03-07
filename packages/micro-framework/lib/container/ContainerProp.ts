@@ -1,5 +1,5 @@
 import { PlainObject } from '@coloration/kit'
-import { IGlobalModule } from '../module';
+import { IGlobalModule } from '../module'
 
 export interface IContainerProp {
   rootPath: string
