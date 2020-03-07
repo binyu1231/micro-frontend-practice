@@ -1,5 +1,5 @@
 import { ReactStore } from '@coloration/micro-framework'
-import { IDemoRootProps, IListItemDto } from './core'
+import { IDemoRootProps, IListItemDto } from '.'
 
 
 export interface IDemoStore extends IDemoRootProps {

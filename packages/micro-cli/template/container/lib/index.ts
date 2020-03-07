@@ -8,6 +8,8 @@ import singleSpaReact from 'single-spa-react'
 import { Root } from './Root'
 import { demoModule } from './core'
 
+
+
 const lifecycles = singleSpaReact({
   React,
   ReactDOM,

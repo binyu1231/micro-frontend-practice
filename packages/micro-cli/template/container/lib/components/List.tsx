@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import { RouteComponentProps } from 'react-router'
-import { useStore } from '../store'
+import { useStore } from '../core/store'
 import { Link } from 'react-router-dom'
 
 export const List: FC<RouteComponentProps> = () => {
@@ -15,7 +15,9 @@ export const List: FC<RouteComponentProps> = () => {
 
   return (
     <div>
+      <div className="bg-red-500">
       This is the list, mock data from <code>core/api.ts</code>
+      </div>
       <table>
         <thead>
           <tr>

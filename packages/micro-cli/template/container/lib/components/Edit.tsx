@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect, useCallback } from 'react'
-import { useStore } from '../store'
+import { useStore } from '../core/store'
 import { useHistory, useParams } from 'react-router-dom'
 import { IListItemDto } from '../core'
 

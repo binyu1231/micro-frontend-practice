@@ -6,14 +6,14 @@ export interface IListFetchPayload {
   offset?: number
 }
 
-export interface IChannelManageDto<T = any> {
+export interface IResponseDto<T = any> {
   code: number
   data: T
   message: string
 }
 
 
-export interface IListDto extends IChannelManageDto<IListItemDto[]> {}
+export interface IListDto extends IResponseDto<IListItemDto[]> {}
 
 export interface IListItemDto {
   id: number,
