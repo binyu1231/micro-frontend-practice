@@ -1,0 +1,19 @@
+.system-context {
+
+}
+
+.system-context .nav {
+  display: flex;
+}
+
+.system-context ul {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 30px;
+  list-style: none;
+}
+
+.system-context a {
+
+}
