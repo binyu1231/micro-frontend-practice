@@ -36,6 +36,7 @@
     "chai": "^4.1.2",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "stats-webpack-plugin": "^0.7.0",
     "typescript": "~3.8.3",
     "vue-template-compiler": "^2.6.11"
   }

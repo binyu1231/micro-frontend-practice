@@ -1,7 +1,13 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const WebpackBar = require('webpackbar')
+const HtmlPlugin = require('html-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
+const BarPlugin = require('webpackbar')
+const HtmlTagsPlugin = require('html-webpack-tags-plugin')
+const path = require('path')
 
-var path = require('path')
+
+const m = require('container-vue/dist/resource.json')
+
+console.log(m)
 
 module.exports = {
   mode: 'development',
@@ -16,19 +22,26 @@ module.exports = {
   },
   devServer: {
     port: 8080,
-    noInfo: true,
+    // noInfo: true,
     hot: true,
     host: 'localhost',
     historyApiFallback: { index: 'index.html' },
     contentBase: path.join(__dirname, '../dist'),
   },
   plugins: [
-    new WebpackBar(),
-    new HtmlWebpackPlugin({
+    new BarPlugin(),
+    new CopyPlugin({
+      patterns: [
+        { from: path.join(__dirname, '../../container-vue/dist/'), to: path.join(__dirname, '../dist/container-vue/') }
+      ]
+    }),
+    new HtmlTagsPlugin({ tags: ['container-vue/js/chunk-vendors.675affb9.js', 'container-vue/js/app.9e17ce92.js'], append: false }),
+    new HtmlPlugin({
       template:path.join(__dirname,'../public/index.html'),   //指定模板页面
       //将来会根据此页面生成内存中的页面
       filename:'index.html'   //指定生成页面的名称，index.html浏览器才会默认直接打开
-  })
+    }),
+    
   ],
   module: {
     rules: [
