@@ -4,10 +4,16 @@ const BarPlugin = require('webpackbar')
 const HtmlTagsPlugin = require('html-webpack-tags-plugin')
 const path = require('path')
 
+const packageNames = ['container-vue']
 
-const m = require('container-vue/dist/resource.json')
+const copyPatterns = packageNames.map(pName =>({ 
+  from: path.join(__dirname, `../../${pName}/dist/`), 
+  to: path.join(__dirname, `../dist/${pName}/`) 
+}))
 
-console.log(m)
+// ['container-vue/js/chunk-vendors.675affb9.js', 'container-vue/js/app.9e17ce92.js']
+
+
 
 module.exports = {
   mode: 'development',
@@ -25,17 +31,13 @@ module.exports = {
     // noInfo: true,
     hot: true,
     host: 'localhost',
-    historyApiFallback: { index: 'index.html' },
+    historyApiFallback: true,
     contentBase: path.join(__dirname, '../dist'),
   },
   plugins: [
     new BarPlugin(),
-    new CopyPlugin({
-      patterns: [
-        { from: path.join(__dirname, '../../container-vue/dist/'), to: path.join(__dirname, '../dist/container-vue/') }
-      ]
-    }),
-    new HtmlTagsPlugin({ tags: ['container-vue/js/chunk-vendors.675affb9.js', 'container-vue/js/app.9e17ce92.js'], append: false }),
+    new CopyPlugin({ patterns: copyPatterns }),
+    // new HtmlTagsPlugin({ tags: htmlTags, append: false/* insert */ }),
     new HtmlPlugin({
       template:path.join(__dirname,'../public/index.html'),   //指定模板页面
       //将来会根据此页面生成内存中的页面
