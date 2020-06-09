@@ -1,7 +1,6 @@
 {
   "name": "container-react",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@babel/core": "7.9.0",
     "@svgr/webpack": "4.3.3",
@@ -12,6 +11,7 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/single-spa-react": "^2.12.0",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
     "babel-eslint": "10.1.0",

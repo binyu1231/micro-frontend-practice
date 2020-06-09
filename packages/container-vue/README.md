@@ -1,34 +1,11 @@
-# container-vue
+# `container-vue`
 
-## Project setup
-```
-yarn install
-```
+> TODO: description
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## Usage
 
-### Compiles and minifies for production
 ```
-yarn build
-```
+const containerVue = require('container-vue');
 
-### Run your unit tests
+// TODO: DEMONSTRATE API
 ```
-yarn test:unit
-```
-
-### Run your end-to-end tests
-```
-yarn test:e2e
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

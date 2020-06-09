@@ -7,7 +7,7 @@ import singleSpaVue from 'single-spa-vue'
 Vue.config.productionTip = false
 
 const vueOptions = {
-  el: '#vue',
+  el: '#container-vue',
   router,
   store,
   render: (h: any) => h(App)
@@ -16,7 +16,7 @@ const vueOptions = {
 
 if (!window['singleSpaNavigate' as any]) { // 如果不是single-spa模式
   delete vueOptions.el;
-  new Vue(vueOptions).$mount('#vue');
+  new Vue(vueOptions).$mount('#container-vue');
 }
 
 const vueLifecycles = singleSpaVue({
