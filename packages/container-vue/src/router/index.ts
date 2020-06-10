@@ -20,10 +20,10 @@ Vue.use(VueRouter)
   }
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
-})
-
-export default router
+export function genRotuer (baseUrl: string) {
+  return new VueRouter({
+    mode: 'history',
+    base: baseUrl,
+    routes
+  })
+}

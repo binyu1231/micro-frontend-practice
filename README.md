@@ -1,7 +1,7 @@
 # 微前端示例
 
 - [x] Vue
-  - [ ] 注入参数
+  - [x] 注入参数
   - [ ] 状态同步
 - [x] React
   - [ ] 注入参数
@@ -26,25 +26,35 @@ System Context
 |- Container Angular
 ```
 
-## 原理
+## 方案原理
 
 子项目挂载到 window 上全局唯一变量. 根项目在路由命中后加载子项目的 js 入口文件完成初始化. 
+微前端有多种实现方式，这里只是其中之一。
 
-### 根项目如何载入子项的JS文件?
+### 如何载入子项的JS文件?
 
-子项目在打包时通过 `stats-webpack-plugin` 插件将打包后的资源文件记录到一个 JSON 文件中. 根项目在打包时读取该文件, 并将此文件所记录的所有子项目的资源文件复制到打包后的目录中`copy-webpack-plugin`.
+子项目在打包时通过 `stats-webpack-plugin` 插件将打包后的资源文件记录到一个 JSON 文件中. 
+根项目在打包时读取该文件, 并将此文件所记录的所有子项目的资源文件通过 `copy-webpack-plugin` 
+插件复制到打包后的目录中.
 
 
 ### 优势
 
-1. 根项目无需再对子项目进行依赖管理, 节省构建时间. 子项目也不需要考虑父包的使用环境. 但是这里需要注意在多个 React 项目中不可以将 React, ReactDOM 构建到子项目中. 因为 React 在使用 hooks 时要求 React 全局唯一
+1. 根项目无需再对子项目进行依赖管理, 节省构建时间. 子项目也不需要考虑父包的使用环境. 
+但是这里需要注意在多个 React 项目中不可以将 React, ReactDOM 构建到子项目中. 因为 React 
+在使用 hooks 时要求 React 全局唯一
 
 2. 移植性强
 
+3. 可在多个项目中复用
+
 ### 劣势
 
-1. 全局唯一, 因为子包的根变量挂载到了 window 上, 所以无法初始化两个相同的子项目
-2. 构建文件变大, 每个子项目都包含了一份本身所有的依赖
+1. 全局唯一, 因为子包的根变量挂载到了 window 上, 所以无法初始化两个相同的子项目。
+而且子项目作为业务模块与组件库不同在于基本上很难在同一个项目中出现两次
+
+2. 构建文件变大, 每个子项目都包含了一份本身所有的依赖。虽然文件体积变大，但由于是动态加载，
+所以只会载入使用到的资源文件
 
 
 ## 构建步骤
@@ -60,8 +70,8 @@ System Context
 const packageNames = ['container-vue', 'container-react', 'container-angular']
 
 // 注意这里 container-vue/dist 中的内容都复制到了 /dist/container-vue
-// 所以子项目 webpack 配置中的 publicPath 需要设置为包名 即
-// publicPath: '/container-vue'
+// 所以子项目 webpack 配置中的 publicPath 需要设置为包名 即 publicPath: '/container-vue'
+// 需要注意的是所有子项目的构建目录都为 'dist'
 const copyPatterns = packageNames.map(pName =>({ 
   from: path.join(__dirname, `${pName}/dist/`), 
   to: path.join(__dirname, `../dist/${pName}/`) 

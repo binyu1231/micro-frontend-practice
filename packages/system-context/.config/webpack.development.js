@@ -20,6 +20,7 @@ module.exports = {
   entry: path.resolve(__dirname, '../src/index.ts'),
   output: {
     filename: 'bundle.js',
+    publicPath: '/',
     path: path.join(__dirname, '../dist'),
   },
   resolve: {
@@ -38,6 +39,7 @@ module.exports = {
     new CopyPlugin({ patterns: copyPatterns }),
     // new HtmlTagsPlugin({ tags: htmlTags, append: false/* insert */ }),
     new HtmlPlugin({
+      
       template:path.join(__dirname,'../public/index.html'),   //指定模板页面
       //将来会根据此页面生成内存中的页面
       filename:'index.html'   //指定生成页面的名称，index.html浏览器才会默认直接打开

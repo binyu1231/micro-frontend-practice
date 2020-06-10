@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
+import { genRotuer } from './router'
 import store from './store'
 import singleSpaVue from 'single-spa-vue'
 
@@ -8,7 +8,7 @@ Vue.config.productionTip = false
 
 const vueOptions = {
   el: '#container-vue',
-  router,
+  router: null as any,
   store,
   render: (h: any) => h(App)
 }
@@ -16,6 +16,7 @@ const vueOptions = {
 
 if (!window['singleSpaNavigate' as any]) { // 如果不是single-spa模式
   delete vueOptions.el;
+  vueOptions.router = genRotuer('/')
   new Vue(vueOptions).$mount('#container-vue');
 }
 
@@ -25,6 +26,10 @@ const vueLifecycles = singleSpaVue({
 })
 
 export const bootstrap = [
+  (props: any) => {
+    vueOptions.router = genRotuer(props.baseUrl)
+    return Promise.resolve(props)
+  },
   vueLifecycles.bootstrap
 ]
 
