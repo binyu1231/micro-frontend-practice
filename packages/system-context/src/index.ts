@@ -1,10 +1,10 @@
-import { registerApplication, start, unloadApplication } from 'single-spa'
+import { registerApplication, start } from 'single-spa'
 import { Nav } from './Nav'
 import './assets/style.css'
 import containerVueManifest from 'container-vue/dist/resource.json'
+import containerReactManifest from 'container-react/dist/resource.json'
 
 Nav(document.getElementById('app'))
-
 
 
 const loadManifest = (namespace: string, manifest) => {
@@ -30,22 +30,23 @@ const loadManifest = (namespace: string, manifest) => {
   return lastScriptPromise
 }
 
+registerApplication( //注册微前端服务
+  'singleVue', 
+  async () => {
+    await loadManifest('container-vue', containerVueManifest)
+    return window['container-vue']
+  },
+  location => location.pathname.startsWith('/vue') // 配置微前端模块前缀
+)
 
 
 registerApplication( //注册微前端服务
-  'singleDemo', 
+  'singleReact', 
   async () => {
-
-    await loadManifest('container-vue', containerVueManifest)
-      // await runScript('http://127.0.0.1:3000/js/chunk-vendors.js');
-      // await runScript('http://127.0.0.1:3000/js/app.js');
-      const app = window['singleVue']
-      
-      console.log('~~', app)
-      return app
+    await loadManifest('container-react', containerReactManifest)
+    return window['container-react']
   },
-  location => location.pathname.startsWith('/container-vue') // 配置微前端模块前缀
+  location => location.pathname.startsWith('/react') // 配置微前端模块前缀
 )
-
 
 start()

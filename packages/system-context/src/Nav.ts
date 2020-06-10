@@ -7,8 +7,8 @@ export function Nav (dom: HTMLElement) {
         <h1>System Context</h1>
         <ul>
           <li>
-            <a href="/container-react">Container React</a>
-            <a href="/container-vue">Container Vue</a>
+            <a href="/react">Container React</a>
+            <a href="/vue">Container Vue</a>
           </li>
         </ul>
       </nav>

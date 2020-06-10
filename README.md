@@ -1,107 +1,214 @@
-# micro framework
+# 微前端示例
 
-Micro Front-End Development Framework
-
-### Use
-
-``` bash
-$ npm i lerna -g
-
-# required 
-$ lerna link
-
-# install packages
-$ lerna bootstrap
-
-# storybook
-$ cd packages/_component-example
-_component-example $ yarn book
-
-# a project
-$ cd packages/_context-example
-_context-example $ yarn start 
-# or 
-_context-example $ yarn build
-```
-
-### Lib
-
-#### Development
-
-- [x] lerna (required)
-- [x] webpack/babel (required)
-- [x] storybook
-- [x] jest
-- [x] postcss/tailwindcss
-
-#### Production
-
-- [x] single-spa (required)
+- [x] Vue
+  - [ ] 注入参数
+  - [ ] 状态同步
 - [x] React
-- [x] Antd
-- [ ] Vue
+  - [ ] 注入参数
+  - [ ] 状态同步
 - [ ] Angular
+  - [ ] 注入参数
+  - [ ] 状态同步
 
-### Feature
+## 使用
 
-#### Workflow
+```
+legend $ yarn install
+legend $ yarn bootstrap
+```
 
-- 开发
-  - [x] 组件开发(storybook) 组件视觉还原
-  - [x] 模块开发(storybook) mock数据
-  - [x] 项目开发(webpack-dev-server)
-- 测试
-  - [x] 单元测试(jest)
-  - [ ] 集成测试
-- 打包
-  - [x] 单独打包(webpack)
-  - [ ] 打包所有
-- 发布
-  - [x] 单独发布(npm)
-  - [x] 发布所有(lerna)
+## 项目结构
+
+``` 
+System Context
+|- Container Vue
+|- Container React
+|- Container Angular
+```
+
+## 原理
+
+子项目挂载到 window 上全局唯一变量. 根项目在路由命中后加载子项目的 js 入口文件完成初始化. 
+
+### 根项目如何载入子项的JS文件?
+
+子项目在打包时通过 `stats-webpack-plugin` 插件将打包后的资源文件记录到一个 JSON 文件中. 根项目在打包时读取该文件, 并将此文件所记录的所有子项目的资源文件复制到打包后的目录中`copy-webpack-plugin`.
 
 
+### 优势
 
-### Flow
+1. 根项目无需再对子项目进行依赖管理, 节省构建时间. 子项目也不需要考虑父包的使用环境. 但是这里需要注意在多个 React 项目中不可以将 React, ReactDOM 构建到子项目中. 因为 React 在使用 hooks 时要求 React 全局唯一
 
-#### install dependences
+2. 移植性强
 
+### 劣势
+
+1. 全局唯一, 因为子包的根变量挂载到了 window 上, 所以无法初始化两个相同的子项目
+2. 构建文件变大, 每个子项目都包含了一份本身所有的依赖
+
+
+## 构建步骤
+
+### System Context
+
+通过 webpack 的 `copy-webpack-plugin` 插件将所有子项目的打包文件都拷贝到根项目的打包目录中来. 
+
+1. 打包配置
+
+``` js
+// webpack
+const packageNames = ['container-vue', 'container-react', 'container-angular']
+
+// 注意这里 container-vue/dist 中的内容都复制到了 /dist/container-vue
+// 所以子项目 webpack 配置中的 publicPath 需要设置为包名 即
+// publicPath: '/container-vue'
+const copyPatterns = packageNames.map(pName =>({ 
+  from: path.join(__dirname, `${pName}/dist/`), 
+  to: path.join(__dirname, `../dist/${pName}/`) 
+}))
+
+module.exports = {
+  plugins: [
+    new CopyPlugin({ patterns: copyPatterns }),
+  ]
+}
+```
+
+2. 注册子项目 
+
+``` js
+registerApplication( 
+  //注册微前端服务名称, 与子项目无关, 用于根项目 single-spa 管理服务使用
+  'singleDemo', 
+  // 路径匹配时, 触发此函数.需要返回子项目的根变量
+  async () => {
+    // loadManifest 的作用是将 manifest 文件中记录的 js 入口文件加载到 
+    // <body> 中,从而将子项目的根变量挂载到 windows 上继而启动了子项目
+    // 这里的 'container-vue' 不是包名而是 webpack 复制的子项目的路径.
+    // 可以看到此处比较混乱, 所以建议全部使用子项目包名作为URI 识别标识.
+    // container-vue 变量
+    await loadManifest('container-vue', containerVueManifest)
+    // 这里的变量名是子项目打包时配置的 output.library 建议也使用包名
+    return window['container-vue']
+  },
+
+  // 这里的匹配路径可以任意设置
+  location => location.pathname.startsWith('/container-vue-foo') 
+)
+
+
+```
+3. index.html
+
+```html
+<!-- public/index.html -->
+<body>
+<!-- 根项目容器 -->
+<div id="app"></div> 
+<!-- 
+  子项目容器 是子项目启动时配置的 el: '#container-vue' 为了方便
+  也用了子项目包名作为id
+-->
+<div id="container-vue"></div>
+</body>
+
+```
+
+上面或以下的所有包名都可以使用 `import { name } from 'container-vue/package.json'` 做抽象处理这里为了方便理解没有做处理. 代码中会处理
+
+### Container Vue
+
+1. 创建 `Vue` 项目
 
 ``` bash
-$ lerna add @component/ui --scope=@container/some-container -S
+$ npm i @vue/cli -g
+$ vue create container-vue
 ```
 
+2. 配置 `vue.config.js`
 
+``` js
+// vue.config.js
+const StatsPlugin = require('stats-webpack-plugin')
 
-### Note
-
-1. lerna 配合 yarn: 应该设置根目录下的 `lerna.json`, `package.json`
-2. 放在同一个项目里的各个package, 为了能在 storybook 预览,需要保证 React, 版本一直
-
-
-```js
-// lerna.json
-{
-  // ...
-  "workspaces": ["your-path/*"],
-  "useWorkspaces": true,
-}
-/// package.json
-{
-  // ...
-  "workspaces": ["your-path/*"],
+module.exports = {
+  publicPath: '/container-vue',
+  // css在所有环境下，都不单独打包为文件。这样是为了保证最小引入（只引入js）
+  css: { extract: false },
+  configureWebpack: {
+      devtool: 'none', // 不打包sourcemap
+      output: {
+        // 全局变量名称, 在根项目初始化子项目 window['container-vue'] 
+        // 此处使用 
+        library: "singleVue",
+        libraryTarget: "window",
+      },
+      plugins: [
+        new StatsPlugin('micro.json', {
+            chunkModules: false,
+            entrypoints: true,
+            source: false,
+            chunks: false,
+            modules: false,
+            assets: false,
+            children: false,
+            exclude: [/node_modules/]
+        }),
+    ]
+  },
+  devServer: {
+      contentBase: './',
+      compress: true,
+  }
 }
 ```
 
-*原因*: 如果不设置为**工作区**，每个项目都会安装自己的依赖，导致项目中会安装很多重复依赖。导致 React
-Hooks 不能从其他模块引入使用。 
+3. 修改入口 
+
+``` js
+import Vue from 'vue'
+import App from './App.vue'
+import singleSpaVue from 'single-spa-vue'
+
+Vue.config.productionTip = false
+
+const vueOptions = {
+  // 根项目body中的元素 id
+  el: '#container-vue',
+  router,
+  store,
+  render: (h: any) => h(App)
+}
+
+// 如果不是single-spa模式
+if (!window['singleSpaNavigate' as any]) { 
+  delete vueOptions.el
+  // 使用自己 public/index.html 中的id
+  new Vue(vueOptions).$mount('#vue');
+}
+
+const vueLifecycles = singleSpaVue({
+  Vue,
+  appOptions: vueOptions
+})
+
+export const bootstrap = [
+  vueLifecycles.bootstrap
+]
+
+export const mount = [
+  vueLifecycles.mount
+]
+
+export const unmount = [
+  vueLifecycles.unmount
+]
+
+export default vueLifecycles
+
+```
+
+### Container React
 
 
-2. 并且子项目的项目依赖不使用本地路径 `"@component/ui":"file:../"` 而**使用版本号** `"@component/ui":"^0.01"`
-*原因*: 不能监听到文件变化，修改后页面无响应
-
-
-
-### other
-
-- [lerna 使用介绍](https://juejin.im/post/5ced1609e51d455d850d3a6c)
+## 其他问题
