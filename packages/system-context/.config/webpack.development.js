@@ -3,7 +3,7 @@ const CopyPlugin = require('copy-webpack-plugin')
 const BarPlugin = require('webpackbar')
 const path = require('path')
 
-const packageNames = ['container-vue', 'container-react']
+const packageNames = ['container-vue', 'container-react', 'container-angular']
 
 const copyPatterns = packageNames.map(pName =>({ 
   from: path.join(__dirname, `../../${pName}/dist/`), 

@@ -31,6 +31,7 @@
     "webpackbar": "^4.0.0"
   },
   "dependencies": {
+    "container-angular": "^0.1.0",
     "container-react": "^0.1.0",
     "container-vue": "^0.1.0",
     "single-spa": "^5.5.1"

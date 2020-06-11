@@ -35,10 +35,6 @@
   }
 
   .toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     height: 60px;
     display: flex;
     align-items: center;
@@ -317,6 +313,20 @@
 
 <div class="content" role="main">
 
+  I'm Angular9
+
+  <a [routerLink]="['/home']">
+    Home
+  </a> |
+  
+  <a [routerLink]="['/about']">
+    About
+  </a>
+  
+  <router-outlet></router-outlet>
+
+
+  
   <!-- Highlight Card -->
   <div class="card highlight-card card-small">
 
@@ -531,4 +541,3 @@
 
 
 
-<router-outlet></router-outlet>
