@@ -1,6 +1,3 @@
-
-
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import singleSpaReact from 'single-spa-react'
@@ -18,7 +15,7 @@ const lifecycles = singleSpaReact({
 
 if (!window['singleSpaNavigate' as any]) { // 如果不是single-spa模式
   ReactDOM.render(
-    <App />,
+    <App baseUrl="" />,
     document.getElementById('container-react')
   )
 }

@@ -7,11 +7,21 @@ export function Nav (dom: HTMLElement) {
         <h1>System Context</h1>
         <ul>
           <li>
-            <a href="/react">Container React</a>
-            <a href="/vue">Container Vue</a>
+            <a id="react-link" href="javascript:;">Container React</a>
+            <a id="vue-link" href="javascript:;">Container Vue</a>
           </li>
         </ul>
       </nav>
     </div>
   `
+
+  const reactLink = document.getElementById('react-link') 
+  const vueLink = document.getElementById('vue-link')
+
+  reactLink.addEventListener('click', function () {
+    window.history.pushState(null, null, '/react')
+  })
+  vueLink.addEventListener('click', function () {
+    window.history.pushState(null, null, '/vue')
+  })
 }
