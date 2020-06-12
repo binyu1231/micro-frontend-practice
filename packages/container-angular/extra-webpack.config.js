@@ -16,6 +16,9 @@ module.exports = config => {
     children: false,
     exclude: [/node_modules/]
   }))
+
+  c.devServer.historyApiFallback = true
+
   // Feel free to modify this webpack config however you'd like to
   return c;
 };

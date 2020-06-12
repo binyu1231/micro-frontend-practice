@@ -30,14 +30,14 @@ registerApplication( //注册微前端服务
   { baseUrl: '/react' }
 )
 
-registerApplication( //注册微前端服务
-  'singleAngular', 
-  async () => {
-    await loadManifest('container-angular', containerAngularManifest)
-    return window['container-angular']
-  },
-  location => location.pathname.startsWith('/container-angular'), // 配置微前端模块前缀
-  { baseUrl: '/container-angular' }
-)
+// registerApplication( //注册微前端服务
+//   'singleAngular', 
+//   async () => {
+//     await loadManifest('container-angular', containerAngularManifest)
+//     return window['container-angular']
+//   },
+//   location => location.pathname.startsWith('/container-angular'), // 配置微前端模块前缀
+//   { baseUrl: '/container-angular' }
+// )
 
 start()

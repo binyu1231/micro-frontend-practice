@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'about',
-  template: `<div>ABOUT2</div>`
+  template: `<h3>About</h3>`
 })
 
 export class AboutComponent implements OnInit {

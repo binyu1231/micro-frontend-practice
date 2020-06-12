@@ -6,7 +6,7 @@
 - [x] React
   - [x] 注入参数
   - [ ] 状态同步
-- [ ] Angular
+- [ ] Angular single-spa 对angular9支持还不完善, 修改内容过多暂时不考虑集成
   - [ ] 注入参数
   - [ ] 状态同步
 

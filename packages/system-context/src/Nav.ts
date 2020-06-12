@@ -9,16 +9,17 @@ export function Nav (dom: HTMLElement) {
           <li>
             <a id="react-link" href="javascript:;">Container React</a>
             <a id="vue-link" href="javascript:;">Container Vue</a>
-            <a id="angular-link" href="javascript:;">Container Angular</a>
           </li>
         </ul>
       </nav>
     </div>
   `
+  // <a id="angular-link" href="javascript:;">Container Angular</a>
+  
 
   const reactLink = document.getElementById('react-link') 
   const vueLink = document.getElementById('vue-link')
-  const angularLink = document.getElementById('angular-link')
+  // const angularLink = document.getElementById('angular-link')
 
   reactLink.addEventListener('click', function () {
     window.history.pushState(null, null, '/react')
@@ -27,7 +28,7 @@ export function Nav (dom: HTMLElement) {
     window.history.pushState(null, null, '/vue')
   })
 
-  angularLink.addEventListener('click', function () {
-    window.history.pushState(null, null, '/container-angular')
-  })
+  // angularLink.addEventListener('click', function () {
+  //   window.history.pushState(null, null, '/container-angular')
+  // })
 }
